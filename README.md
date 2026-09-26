@@ -1,48 +1,88 @@
 # Mahastar Medical Billing LLC — Website
 
-Source for https://www.mahastarmedicalbilling.llc, a static site hosted on **Cloudflare Pages**.
+Source for https://www.mahastarmedicalbilling.llc, hosted on **Cloudflare Pages**.
 
-It's plain HTML and CSS, so there's no build step.
+Pages are generated from data by a small Node script — no framework, no dependencies.
+
+## Quick start
+
+```sh
+npm run build     # generates dist/
+npm run dev       # build, then serve dist/ at http://localhost:8000
+```
+
+Node 18 or newer. There is nothing to `npm install`.
 
 ## Structure
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Home page (services, why us, process, FAQ, contact) |
-| `404.html` | Not-found page (Cloudflare Pages serves it automatically) |
-| `assets/` | Stylesheet and favicon |
-| `_headers` | Security and cache headers (Cloudflare Pages) |
-| `_redirects` | Path redirects (Cloudflare Pages) |
-| `robots.txt`, `sitemap.xml` | SEO |
+| `src/data.js` | **All site content**: services, specialties, FAQs, contact details |
+| `src/pages.js` | Page templates |
+| `src/layout.js` | Shared shell — head, top bar, nav, footer, icons |
+| `src/components.js` | Reusable blocks — forms, cards, accordions, CTA band |
+| `src/build.js` | Renders every route into `dist/` |
+| `public/` | Copied verbatim into `dist/` (CSS, JS, logos, `_headers`, `_redirects`) |
+| `functions/api/lead.js` | Cloudflare Pages Function that receives form submissions |
 
-## Deploying on Cloudflare Pages
+To change wording, a service or a phone number, edit `src/data.js` — not the HTML.
 
-1. In the Cloudflare dashboard, go to **Workers & Pages → Create → Pages → Connect to Git**.
-2. Select the repository `waseemsaleemminhas/mahastarmedicalbilling.llc-website`.
-3. Build settings:
-   - **Production branch:** `main`
+### Pages
+
+Home, Services (plus a page per service), Specialties, Pricing, About, Contact,
+Privacy, and a 404. Adding a service to the `services` array in `src/data.js`
+creates its page, its nav entry and its card automatically.
+
+## Deploying to Cloudflare Pages
+
+1. **Workers & Pages → Create → Pages → Connect to Git**, then pick this repository.
+2. Build settings:
    - **Framework preset:** None
-   - **Build command:** *(leave empty)*
-   - **Build output directory:** `/`
-4. Click **Save and Deploy**. The site goes live at `<project>.pages.dev`.
-5. Open the project's **Custom domains** tab and add `www.mahastarmedicalbilling.llc`, then add `mahastarmedicalbilling.llc`.
-   If the domain's DNS is on Cloudflare, the DNS records are created automatically.
-6. To send the bare domain to `www`, create a **Redirect Rule** (Rules → Redirect Rules):
-   hostname equals `mahastarmedicalbilling.llc` → `https://www.mahastarmedicalbilling.llc${uri}`, status 301.
-7. Under **SSL/TLS**, turn on **Always Use HTTPS**.
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+   - **Production branch:** whichever branch you merge to (`main` once it exists)
+3. **Save and Deploy.** The site goes live at `<project>.pages.dev`.
+4. **Custom domains:** add `www.mahastarmedicalbilling.llc`, then `mahastarmedicalbilling.llc`.
+   If the domain's DNS is on Cloudflare, records are created for you.
+5. **Bare domain → www:** Rules → Redirect Rules. When hostname equals
+   `mahastarmedicalbilling.llc`, redirect 301 to
+   `https://www.mahastarmedicalbilling.llc${uri}`.
+6. **SSL/TLS:** turn on *Always Use HTTPS*.
 
-Every push to `main` redeploys the site. Other branches get preview URLs.
+Pushes to the production branch redeploy. Other branches get preview URLs.
+
+## Contact form email
+
+Forms POST JSON to `/api/lead`, handled by `functions/api/lead.js`. Until email is
+configured the endpoint accepts submissions and logs them, so nothing 500s — but
+**nothing reaches your inbox either**. To receive them, set these in the Pages
+project under Settings → Environment variables:
+
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) — store as an **encrypted secret** |
+| `LEAD_TO` | Where enquiries go, e.g. `info@mahastarmedicalbilling.llc` |
+| `LEAD_FROM` | A verified sender on your domain, e.g. `website@mahastarmedicalbilling.llc` |
+
+The sending domain has to be verified in Resend first, or mail is rejected. Any
+other provider works too — replace `deliver()` in `functions/api/lead.js`; nothing
+else depends on Resend.
+
+The form includes a hidden honeypot field and server-side validation. For heavier
+bot traffic, add Cloudflare Turnstile.
 
 ## Before launch
 
-- Replace the placeholder phone number in `index.html` (search for `TODO`).
-- Check that the email address `info@mahastarmedicalbilling.llc` exists.
-- The contact form currently opens the visitor's email app (`mailto:`). To receive submissions directly, connect it to a form service or a Cloudflare Pages Function.
+These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
 
-## Local preview
-
-```sh
-python3 -m http.server 8000
-```
-
-Then open http://localhost:8000.
+- [ ] **Phone number** — `(000) 000-0000` in `src/data.js`
+- [ ] **Email** — confirm `info@mahastarmedicalbilling.llc` exists and is monitored
+- [ ] **Homepage stats** — the `STATS` array in `src/pages.js` shows `[ 00 ]`
+      placeholders. Replace with real, documented figures or delete the tiles.
+      Do not publish numbers you cannot support.
+- [ ] **Pricing rate** — `[ 0.00 ]%` on the pricing page
+- [ ] **Business address** — add one if you have a public office
+- [ ] **Privacy policy** — the template at `/privacy/` needs review by counsel
+- [ ] **Logo** — `public/assets/logo.svg` is a placeholder mark
+- [ ] **Testimonials** — deliberately omitted. Add only with written client
+      permission, and take care not to identify patients.

@@ -1,0 +1,4 @@
+/index.html   /            301
+/home         /            301
+/services.html /services/  301
+/service/*    /services/:splat  301

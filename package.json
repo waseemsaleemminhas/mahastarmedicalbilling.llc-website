@@ -1,0 +1,13 @@
+{
+  "name": "mahastar-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Website for Mahastar Medical Billing LLC",
+  "scripts": {
+    "build": "node src/build.js",
+    "dev": "node src/build.js && node --run serve",
+    "serve": "cd dist && python3 -m http.server 8000"
+  },
+  "engines": { "node": ">=18" }
+}
