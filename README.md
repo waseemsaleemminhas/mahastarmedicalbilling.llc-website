@@ -80,9 +80,12 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
       publish a US line; consider a forwarding number
 - [x] **Location** — Virginia, USA; shown in the footer, contact page, About page and FAQ
 - [ ] **Email** — confirm `info@mahastarmedicalbilling.llc` exists and is monitored
-- [ ] **Homepage stats** — the `STATS` array in `src/pages.js` shows `[ 00 ]`
-      placeholders. Replace with real, documented figures or delete the tiles.
-      Do not publish numbers you cannot support.
+- [x] **Homepage stats** — now commitment-based (50 states, 20+ specialties,
+      24-hour response, $0 setup fee). Every tile is true from day one. Swap in
+      earned metrics once there is reporting to evidence them; see the note on
+      the `STATS` array in `src/pages.js`.
+- [ ] **24-hour response** — this is a published promise. Keep it, or change the
+      tile in `src/pages.js`.
 - [ ] **Pricing rate** — `[ 0.00 ]%` on the pricing page
 - [ ] **Street address** — only the state is published; add city and street if you
       have a public office (also fills in the structured-data address)

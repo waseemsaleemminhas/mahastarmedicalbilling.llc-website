@@ -2,13 +2,18 @@ import { site, services, specialties, differentiators, process, faqs } from './d
 import { icon } from './layout.js';
 import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
-// PLACEHOLDER METRICS — replace each value with a real, documented figure
-// before launch, or delete the tile. Do not publish numbers you cannot support.
+// These tiles state commitments and facts about the service, not performance
+// claims — each one is true from day one and nothing here can be contradicted
+// by a prospect who checks.
+//
+// Once there is six to twelve months of reporting, swap in earned metrics:
+// practices served, clean claim rate, average days in A/R, collections
+// recovered. Only publish a figure the practice's own reports can evidence.
 const STATS = [
-  ['[ 00 ]+', 'Practices served'],
-  ['[ 00 ]+', 'Specialties supported'],
-  ['[ 00 ]%', 'Clean claim rate'],
-  ['50', 'States covered'],
+  ['50', 'States served'],
+  [`${specialties.length}+`, 'Specialties supported'],
+  ['24 hrs', 'Response time'],
+  ['$0', 'Setup fee'],
 ];
 
 export function home() {
