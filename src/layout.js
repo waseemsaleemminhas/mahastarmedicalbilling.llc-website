@@ -11,6 +11,7 @@ const icons = {
   phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/>',
   mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
 };
 
@@ -63,6 +64,11 @@ ${JSON.stringify({
   telephone: site.phone,
   description: 'Medical billing, coding, credentialing and revenue cycle management for healthcare practices in the United States.',
   areaServed: 'US',
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: site.region,
+    addressCountry: site.country,
+  },
 }, null, 2)}
 </script>
 </head>
@@ -113,6 +119,7 @@ ${body}
         <li>${icon('phone', 'icon icon-sm')}<a href="${site.phoneHref}">${site.phone}</a></li>
         <li>${icon('mail', 'icon icon-sm')}<a href="mailto:${site.email}">${site.email}</a></li>
         <li>${icon('clock', 'icon icon-sm')}<span>${site.hours}</span></li>
+        <li>${icon('pin', 'icon icon-sm')}<span>${site.location}</span></li>
       </ul>
     </div>
     <div class="footer-col">

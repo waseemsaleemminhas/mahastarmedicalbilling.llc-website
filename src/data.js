@@ -10,6 +10,10 @@ export const site = {
   phoneHref: 'tel:+923110271554',
   email: 'info@mahastarmedicalbilling.llc',
   hours: 'Monday – Friday, 9:00 AM – 5:00 PM (EST)',
+  // Add street and city once there is a public office address to publish.
+  location: 'Virginia, United States',
+  region: 'VA',
+  country: 'US',
 };
 
 export const nav = [
@@ -193,11 +197,6 @@ export const faqs = [
   ['How quickly can we start?', 'Most practices are onboarded within one to two weeks. Credentialing, if you need it, runs on the payers\' timelines rather than ours.'],
   ['Can you take on our aged A/R?', 'Yes, subject to timely filing limits. We will review what is still recoverable before committing to it.'],
   ['How do you handle patient data?', 'Under HIPAA requirements, with access limited to the staff assigned to your account and a signed business associate agreement in place before any data moves.'],
-  // REMOVED PENDING FACTS: the previous answer asserted the company is US-based.
-  // The listed contact number is a Pakistan (+92) line, so that claim cannot be
-  // published as-is. Restore it only if the LLC is genuinely US-registered, and
-  // say plainly where the team is located — prospective clients ask, and payers
-  // and HIPAA business associate agreements make it material.
-  // ['Where are you based?', '...'],
+  ['Where are you based?', 'Mahastar Medical Billing LLC is based in Virginia, United States, and works with practices nationwide.'],
   ['What if we want to leave?', 'There is no long-term lock-in. You give notice, we work the claims already in flight, and your data goes with you.'],
 ];

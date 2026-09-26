@@ -78,13 +78,14 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
 - [x] **Phone number** — set to +92 311 027 1554 in `src/data.js`
 - [ ] **US contact number** — a US-facing billing company is usually expected to
       publish a US line; consider a forwarding number
-- [ ] **"Where are you based?" FAQ** — removed pending facts, see note in `src/data.js`
+- [x] **Location** — Virginia, USA; shown in the footer, contact page, About page and FAQ
 - [ ] **Email** — confirm `info@mahastarmedicalbilling.llc` exists and is monitored
 - [ ] **Homepage stats** — the `STATS` array in `src/pages.js` shows `[ 00 ]`
       placeholders. Replace with real, documented figures or delete the tiles.
       Do not publish numbers you cannot support.
 - [ ] **Pricing rate** — `[ 0.00 ]%` on the pricing page
-- [ ] **Business address** — add one if you have a public office
+- [ ] **Street address** — only the state is published; add city and street if you
+      have a public office (also fills in the structured-data address)
 - [ ] **Privacy policy** — the template at `/privacy/` needs review by counsel
 - [ ] **Logo** — `public/assets/logo.svg` is a placeholder mark
 - [ ] **Testimonials** — deliberately omitted. Add only with written client

@@ -330,12 +330,15 @@ export function aboutPage() {
   <div class="container">
     <p class="eyebrow light">About us</p>
     <h1>A billing partner, not a claims processor</h1>
-    <p class="lead">${site.name} is a United States medical billing company working with independent practices and clinics nationwide.</p>
+    <p class="lead">${site.name} is a Virginia-based medical billing company working with independent practices and clinics across the United States.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container narrow prose">
+    <h2>Who we are</h2>
+    <p>Mahastar Medical Billing LLC is based in Virginia and works with practices across all fifty states. We are deliberately small enough that the person handling your claims is someone you can name.</p>
+
     <h2>What we do</h2>
     <p>We manage the financial side of a medical practice: coding the visit, submitting the claim, posting the payment, appealing the denial and chasing what is still outstanding. Practices bring us in either to replace an in-house billing function that has become expensive and hard to staff, or to replace a billing company that stopped being responsive.</p>
 
@@ -374,6 +377,7 @@ export function contactPage() {
         <li>${icon('phone', 'icon')}<div><h3>Phone</h3><a href="${site.phoneHref}">${site.phone}</a></div></li>
         <li>${icon('mail', 'icon')}<div><h3>Email</h3><a href="mailto:${site.email}">${site.email}</a></div></li>
         <li>${icon('clock', 'icon')}<div><h3>Hours</h3><span>${site.hours}</span></div></li>
+        <li>${icon('pin', 'icon')}<div><h3>Based in</h3><span>${site.location}</span></div></li>
       </ul>
       <div class="contact-note">
         <h3>Before you write</h3>
