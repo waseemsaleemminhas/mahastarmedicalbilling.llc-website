@@ -75,7 +75,10 @@ bot traffic, add Cloudflare Turnstile.
 
 These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
 
-- [ ] **Phone number** — `(000) 000-0000` in `src/data.js`
+- [x] **Phone number** — set to +92 311 027 1554 in `src/data.js`
+- [ ] **US contact number** — a US-facing billing company is usually expected to
+      publish a US line; consider a forwarding number
+- [ ] **"Where are you based?" FAQ** — removed pending facts, see note in `src/data.js`
 - [ ] **Email** — confirm `info@mahastarmedicalbilling.llc` exists and is monitored
 - [ ] **Homepage stats** — the `STATS` array in `src/pages.js` shows `[ 00 ]`
       placeholders. Replace with real, documented figures or delete the tiles.

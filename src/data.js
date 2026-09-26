@@ -6,9 +6,8 @@ export const site = {
   shortName: 'Mahastar',
   domain: 'https://www.mahastarmedicalbilling.llc',
   tagline: 'Medical Billing & Revenue Cycle Management',
-  // TODO: replace the placeholder phone number before launch.
-  phone: '(000) 000-0000',
-  phoneHref: 'tel:+10000000000',
+  phone: '+92 311 027 1554',
+  phoneHref: 'tel:+923110271554',
   email: 'info@mahastarmedicalbilling.llc',
   hours: 'Monday – Friday, 9:00 AM – 5:00 PM (EST)',
 };
@@ -194,6 +193,11 @@ export const faqs = [
   ['How quickly can we start?', 'Most practices are onboarded within one to two weeks. Credentialing, if you need it, runs on the payers\' timelines rather than ours.'],
   ['Can you take on our aged A/R?', 'Yes, subject to timely filing limits. We will review what is still recoverable before committing to it.'],
   ['How do you handle patient data?', 'Under HIPAA requirements, with access limited to the staff assigned to your account and a signed business associate agreement in place before any data moves.'],
-  ['Are you US-based?', 'Yes. Mahastar Medical Billing LLC is a United States company serving practices nationwide.'],
+  // REMOVED PENDING FACTS: the previous answer asserted the company is US-based.
+  // The listed contact number is a Pakistan (+92) line, so that claim cannot be
+  // published as-is. Restore it only if the LLC is genuinely US-registered, and
+  // say plainly where the team is located — prospective clients ask, and payers
+  // and HIPAA business associate agreements make it material.
+  // ['Where are you based?', '...'],
   ['What if we want to leave?', 'There is no long-term lock-in. You give notice, we work the claims already in flight, and your data goes with you.'],
 ];
