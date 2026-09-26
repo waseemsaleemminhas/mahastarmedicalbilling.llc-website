@@ -282,7 +282,12 @@ ul { margin: 0; }
 .price-label { font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-size: .8rem; margin: 0; }
 .price-value { font-size: clamp(2.4rem, 6vw, 3.4rem); font-weight: 800; color: var(--brand); margin: 6px 0; letter-spacing: -.03em; }
 .price-value span { font-size: 1rem; font-weight: 700; color: var(--muted); letter-spacing: 0; }
-.price-note { font-size: .82rem; color: #b06a00; background: #fff6e5; border-radius: 8px; padding: 8px 12px; display: inline-block; }
+.price-quote { font-size: clamp(1.9rem, 4.4vw, 2.6rem); }
+.price-sub { color: var(--muted); font-size: .95rem; max-width: 40ch; margin: 0 auto; }
+.price-factors { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 10px; }
+.price-factors li { padding-left: 18px; position: relative; color: var(--muted); }
+.price-factors li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.price-factors strong { color: var(--ink); }
 .price-includes { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 10px; text-align: left; }
 .price-includes li { display: flex; gap: 10px; align-items: center; font-weight: 600; color: var(--ink); font-size: .95rem; }
 .price-includes .icon { color: var(--accent-600); }

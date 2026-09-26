@@ -86,7 +86,9 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
       the `STATS` array in `src/pages.js`.
 - [ ] **24-hour response** — this is a published promise. Keep it, or change the
       tile in `src/pages.js`.
-- [ ] **Pricing rate** — `[ 0.00 ]%` on the pricing page
+- [x] **Pricing** — the card shows "Custom quote" rather than a published rate,
+      with the four factors that shape it. Swap in a headline percentage later
+      if you decide to compete on a public number.
 - [ ] **Street address** — only the state is published; add city and street if you
       have a public office (also fills in the structured-data address)
 - [ ] **Privacy policy** — the template at `/privacy/` needs review by counsel

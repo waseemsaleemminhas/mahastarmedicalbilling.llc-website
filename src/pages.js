@@ -304,8 +304,8 @@ export function pricingPage() {
     })}
     <div class="price-card">
       <p class="price-label">Full-service medical billing</p>
-      <p class="price-value">[ 0.00 ]<span>% of monthly collections</span></p>
-      <p class="price-note">Placeholder — replace with your actual rate, or remove this tile and quote privately.</p>
+      <p class="price-value price-quote">Custom quote</p>
+      <p class="price-sub">A percentage of monthly collections, quoted after we look at your claim mix</p>
       <ul class="price-includes">
         <li>${icon('check', 'icon icon-sm')} Charge entry, scrubbing and claim submission</li>
         <li>${icon('check', 'icon icon-sm')} Payment posting and reconciliation</li>
@@ -317,6 +317,15 @@ export function pricingPage() {
       <a class="btn btn-accent btn-block" href="/contact/">Get a Quote</a>
     </div>
     <div class="price-notes">
+      <h3>What shapes your rate</h3>
+      <p>Four things, and we will say which is driving your number rather than quoting a figure without explanation:</p>
+      <ul class="price-factors">
+        <li><strong>Claim volume</strong> — higher volume generally means a lower percentage.</li>
+        <li><strong>Average claim value</strong> — the work per claim is similar whether it is worth $60 or $600.</li>
+        <li><strong>Specialty complexity</strong> — coding depth and prior authorization load vary widely.</li>
+        <li><strong>Payer mix</strong> — some payers simply take more follow-up than others.</li>
+      </ul>
+
       <h3>What is not included</h3>
       <p>Credentialing and aged A/R cleanup are quoted separately, because both are project work rather than ongoing volume. We will tell you the cost before starting either.</p>
       <h3>No setup fee, no minimum</h3>
