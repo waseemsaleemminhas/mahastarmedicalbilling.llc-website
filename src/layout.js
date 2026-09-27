@@ -1,4 +1,12 @@
 import { site, nav } from './data.js';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+
+// Cache-busting: assets are cached for a week at the edge, so each build
+// stamps CSS/JS URLs with a short hash of the file's contents.
+const ver = (f) => createHash('sha256').update(readFileSync(new URL(`../public/assets/${f}`, import.meta.url))).digest('hex').slice(0, 10);
+const CSS_V = ver('styles.css');
+const JS_V = ver('site.js');
 
 const icons = {
   file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/>',
@@ -55,7 +63,7 @@ export function page({ path, title, description, body, bodyClass = '' }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=${CSS_V}">
 <script type="application/ld+json">
 ${JSON.stringify({
   '@context': 'https://schema.org',
@@ -153,7 +161,7 @@ ${body}
 </footer>
 
 <a class="call-fab" href="${site.phoneHref}" aria-label="Call ${site.phone}">${icon('phone', 'icon')}</a>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=${JS_V}" defer></script>
 </body>
 </html>
 `;
