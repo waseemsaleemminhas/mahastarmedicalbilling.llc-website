@@ -88,7 +88,7 @@ ${JSON.stringify({
 <header class="site-header">
   <div class="container nav-bar">
     <a class="brand" href="/">
-      <img src="/assets/logo.svg" alt="" width="40" height="40">
+      <img src="/assets/logo.svg" alt="" width="46" height="38">
       <span class="brand-text">Mahastar<small>Medical Billing LLC</small></span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
@@ -111,7 +111,7 @@ ${body}
   <div class="container footer-top">
     <div class="footer-brand">
       <a class="brand brand-light" href="/">
-        <img src="/assets/logo-light.svg" alt="" width="40" height="40">
+        <img src="/assets/logo-light.svg" alt="" width="46" height="38">
         <span class="brand-text">Mahastar<small>Medical Billing LLC</small></span>
       </a>
       <p>${site.name} handles medical billing, coding, credentialing and revenue cycle management so healthcare practices can focus on patient care.</p>

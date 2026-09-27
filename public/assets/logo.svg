@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mahastar"><rect width="64" height="64" rx="16" fill="#23306b"/><path d="M32 13l5.3 10.8 11.9 1.7-8.6 8.4 2 11.9L32 40.2l-10.6 5.6 2-11.9-8.6-8.4 11.9-1.7z" fill="#14b5c9"/><path d="M32 24.5l2.2 4.5 5 .7-3.6 3.5.8 4.9-4.4-2.3-4.4 2.3.8-4.9-3.6-3.5 5-.7z" fill="#23306b"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 60" role="img" aria-label="Mahastar Medical Billing">
+  <title>Mahastar Medical Billing</title>
+  <path d="M4 56V14h10l12 17 12-17h10v42H38V31l-9 13h-4l-9-13v25z" fill="#1D2A44"/>
+  <path d="M 57.0,2.0 L 59.8,10.1 L 68.4,10.3 L 61.6,15.5 L 64.1,23.7 L 57.0,18.8 L 49.9,23.7 L 52.4,15.5 L 45.6,10.3 L 54.2,10.1 Z" fill="#00A896"/>
+</svg>

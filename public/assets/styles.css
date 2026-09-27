@@ -1,11 +1,11 @@
 /* Mahastar Medical Billing LLC — site styles */
 
 :root {
-  --brand: #23306b;
-  --brand-700: #1a2450;
-  --brand-300: #4d5a9c;
-  --accent: #14b5c9;
-  --accent-600: #0e93a5;
+  --brand: #1D2A44;
+  --brand-700: #131d31;
+  --brand-300: #4a5a78;
+  --accent: #00A896;
+  --accent-600: #00786C;
   --ink: #1b2130;
   --body: #4a5468;
   --muted: #6b7587;
@@ -92,9 +92,9 @@ ul { margin: 0; }
 .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 76px; }
 .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; font-weight: 800; color: var(--brand); font-size: 1.22rem; line-height: 1.05; letter-spacing: -.02em; }
-.brand-text small { font-size: .63rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
+.brand-text small { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-600); }
 .brand-light .brand-text { color: #fff; }
-.brand-light .brand-text small { color: #9fb0d8; }
+.brand-light .brand-text small { color: var(--accent); }
 
 .primary-nav { display: flex; align-items: center; gap: 26px; }
 .primary-nav > ul { display: flex; align-items: center; gap: 26px; list-style: none; padding: 0; }

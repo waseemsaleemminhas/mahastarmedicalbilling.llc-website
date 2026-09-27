@@ -101,6 +101,11 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
       notification procedure), add each to the FAQ in `src/data.js` and consider
       a dedicated compliance page. Publish nothing before it is true: a
       practice's compliance officer can ask you to evidence any of it.
-- [ ] **Logo** — `public/assets/logo.svg` is a placeholder mark
+- [x] **Logo** — navy/green M-and-star mark in `public/assets/` (logo.svg,
+      logo-light.svg for dark backgrounds, favicon.svg). Site palette matches:
+      `--brand: #1D2A44`, `--accent: #00A896`.
+- [ ] **Full logo lockup** — the web mark drops the cross and stethoscope from
+      the brand artwork; they turn to mush below ~64px. Ask the designer for the
+      original vector (AI/EPS/SVG) for print, letterheads and social profiles.
 - [ ] **Testimonials** — deliberately omitted. Add only with written client
       permission, and take care not to identify patients.
