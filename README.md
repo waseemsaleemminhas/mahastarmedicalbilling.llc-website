@@ -40,6 +40,7 @@ creates its page, its nav entry and its card automatically.
    - **Framework preset:** None
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
+   - Node version is pinned by `.node-version` (22); no need to set it by hand.
    - **Production branch:** whichever branch you merge to (`main` once it exists)
 3. **Save and Deploy.** The site goes live at `<project>.pages.dev`.
 4. **Custom domains:** add `www.mahastarmedicalbilling.llc`, then `mahastarmedicalbilling.llc`.
