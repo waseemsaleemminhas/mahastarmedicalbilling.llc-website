@@ -92,6 +92,15 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
 - [ ] **Street address** — only the state is published; add city and street if you
       have a public office (also fills in the structured-data address)
 - [ ] **Privacy policy** — the template at `/privacy/` needs review by counsel
+- [ ] **BAA template** — the site says we will work through a BAA with practices
+      that lack one. Have a template drafted and reviewed by counsel before
+      making that offer to a real client.
+- [ ] **Further HIPAA safeguards** — the site claims only a signed BAA and
+      HIPAA-trained staff, because that is what is in place. As controls go in
+      (MFA on systems holding PHI, a device and email policy, a written breach
+      notification procedure), add each to the FAQ in `src/data.js` and consider
+      a dedicated compliance page. Publish nothing before it is true: a
+      practice's compliance officer can ask you to evidence any of it.
 - [ ] **Logo** — `public/assets/logo.svg` is a placeholder mark
 - [ ] **Testimonials** — deliberately omitted. Add only with written client
       permission, and take care not to identify patients.

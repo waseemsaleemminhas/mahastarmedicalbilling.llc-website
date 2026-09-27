@@ -178,7 +178,7 @@ export const differentiators = [
   ['Dedicated account manager', 'One named contact who knows your practice, your payers and your history, rather than a ticket queue.'],
   ['Transparent, percentage-based pricing', 'A single percentage of what we actually collect. No setup fees, no per-claim charges, no annual minimum.'],
   ['We work in your software', 'We use the practice management system and clearinghouse you already have. No migration required.'],
-  ['Compliance built in', 'Workflows designed around HIPAA requirements and payer guidelines, with access limited to the staff assigned to your account.'],
+  ['A signed BAA before we start', 'We sign your business associate agreement before we are given access to any patient data. Our staff are HIPAA-trained and access is limited to the people assigned to your account.'],
   ['Reporting you can actually read', 'A monthly report in plain language: what was billed, what was collected, what was denied and what we are doing about it.'],
   ['You keep your data', 'Your records remain yours. If the relationship ends, you leave with everything.'],
 ];
@@ -196,7 +196,11 @@ export const faqs = [
   ['Which specialties do you support?', 'A broad range, including primary care, behavioral health, physical therapy, orthopedics, cardiology and more. If your specialty is not listed, ask us.'],
   ['How quickly can we start?', 'Most practices are onboarded within one to two weeks. Credentialing, if you need it, runs on the payers\' timelines rather than ours.'],
   ['Can you take on our aged A/R?', 'Yes, subject to timely filing limits. We will review what is still recoverable before committing to it.'],
-  ['How do you handle patient data?', 'Under HIPAA requirements, with access limited to the staff assigned to your account and a signed business associate agreement in place before any data moves.'],
+  // Only claims that are true today. Add safeguards here as controls go in —
+  // MFA, a device and email policy, a written breach procedure — and not before.
+  // A practice's compliance officer can ask you to evidence anything published here.
+  ['Will you sign our business associate agreement?', 'Yes, and before we are given access to any protected health information. If your practice does not have a BAA of its own, tell us and we will work through one with you. Nothing starts until it is signed.'],
+  ['How do you handle patient data?', 'Under HIPAA requirements, and under the terms of the business associate agreement we sign with you. Everyone who works on your account completes HIPAA training, and access is limited to the staff assigned to it.'],
   ['Where are you based?', 'Mahastar Medical Billing LLC is based in Virginia, United States, and works with practices nationwide.'],
   ['What if we want to leave?', 'There is no long-term lock-in. You give notice, we work the claims already in flight, and your data goes with you.'],
 ];

@@ -362,7 +362,8 @@ export function aboutPage() {
     <p>Reporting goes out monthly, in plain language: what was billed, what was collected, what was denied and what we are doing about it. If a number moved the wrong way, the report says so rather than burying it.</p>
 
     <h2>Compliance</h2>
-    <p>Patient data is handled under HIPAA requirements. Access is limited to the staff assigned to your account, and a business associate agreement is signed before any data changes hands.</p>
+    <p>We are a HIPAA business associate, and we act like one. A business associate agreement is signed before we are given access to any patient data — if your practice does not have one, we will work through it with you rather than leaving it to chance. Everyone who works on your account completes HIPAA training, and access is limited to the people assigned to it.</p>
+    <p>Please do not send patient information through the contact form on this website or by ordinary email. During onboarding we agree a secure way to reach what we need, normally direct access to your own systems.</p>
 
     <h2>Working with us</h2>
     <p>There is no long-term lock-in. We would rather keep clients because the collections improved than because the contract made leaving painful.</p>
