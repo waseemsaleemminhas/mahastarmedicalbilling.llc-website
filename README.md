@@ -112,3 +112,15 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
       swap the files in place (same names).
 - [ ] **Testimonials** — deliberately omitted. Add only with written client
       permission, and take care not to identify patients.
+
+## Image and map credits
+
+Photos in `public/assets/img/` are from [Pexels](https://www.pexels.com/license/)
+(free for commercial use, no attribution required), cropped and converted to WebP:
+8376228 (doctor-laptop), 7688191 (billing-review), 6627907 (front-desk),
+5998442 (clinician-notes), 40568 (stethoscope-records).
+
+The interactive map in `src/usmap.js` is generated from
+[us-atlas](https://github.com/topojson/us-atlas) (U.S. Census Bureau cartographic
+boundaries, ISC licence). Clicking a state links to `/contact/?state=XX`, which
+prefills the contact form.

@@ -15,7 +15,7 @@
  */
 
 const MAX_BODY_BYTES = 8_000;
-const FIELDS = ['name', 'email', 'phone', 'practice', 'specialty', 'message', 'page'];
+const FIELDS = ['name', 'email', 'phone', 'practice', 'specialty', 'challenges', 'message', 'page'];
 
 const json = (status, data) =>
   new Response(JSON.stringify(data), {
@@ -89,7 +89,7 @@ export async function onRequestPost({ request, env }) {
   if (clean(raw.company_website)) return json(200, { ok: true });
 
   const data = Object.fromEntries(
-    FIELDS.map((f) => [f, clean(raw[f], f === 'message' ? 2000 : 200)])
+    FIELDS.map((f) => [f, clean(raw[f], f === 'message' || f === 'challenges' ? 2000 : 200)])
   );
 
   const errors = validate(data);

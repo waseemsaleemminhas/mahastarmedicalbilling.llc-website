@@ -1,5 +1,6 @@
 import { site, services, specialties, differentiators, process, faqs, safeguards, baa } from './data.js';
 import { icon } from './layout.js';
+import { US_STATES } from './usmap.js';
 import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
 // These tiles state commitments and facts about the service, not performance
@@ -15,6 +16,17 @@ const STATS = [
   ['24 hrs', 'Response time'],
   ['$0', 'Setup fee'],
 ];
+
+function usMap() {
+  const hq = 'VA';
+  const paths = US_STATES.map(([ab, name, d]) =>
+    `<path d="${d}" data-state="${ab}" data-name="${name}"${ab === hq ? ' class="hq"' : ''} tabindex="0" role="button" aria-label="${name}${ab === hq ? ' (headquarters)' : ''}"></path>`).join('');
+  const [vx, vy] = US_STATES.find((s) => s[0] === hq)[3];
+  return `<svg class="us-map" viewBox="0 0 975 610" role="group" aria-label="Map of the United States. Select a state." data-us-map>
+    <g class="states">${paths}</g>
+    <g class="hq-pin" aria-hidden="true" transform="translate(${vx} ${vy})"><circle r="14" class="hq-pulse"></circle><circle r="6"></circle></g>
+  </svg>`;
+}
 
 export function home() {
   return `
@@ -74,6 +86,7 @@ ${statBand(STATS)}
       <p>Most practices do not leave their billing company over a spreadsheet. They leave because nobody picks up, claims sit untouched, and nobody can explain where the money went.</p>
       <p>We are built around the opposite: a named account manager, a documented follow-up cadence on every claim, and a monthly report written in plain language rather than payer jargon.</p>
       <a class="btn btn-primary" href="/about/">More about how we work</a>
+      <figure class="photo photo-wide"><img src="/assets/img/doctor-laptop.webp" alt="Physician reviewing billing reports on a laptop in his office" width="1200" height="800" loading="lazy" decoding="async"></figure>
     </div>
     <div class="feature-list">
       ${differentiators.map(([t, d]) => `<div class="feature">
@@ -113,6 +126,26 @@ ${statBand(STATS)}
   </div>
 </section>
 
+<section class="section">
+  <div class="container split map-split">
+    <div class="split-copy">
+      <p class="eyebrow">Nationwide coverage</p>
+      <h2>Billing support for practices in all 50 states</h2>
+      <p>We are based in Virginia and work remotely inside your own systems, so location is never a barrier. Each state brings its own Medicaid program, payer mix and filing rules, and we work to them.</p>
+      <p class="map-hint">Hover or tap a state on the map.</p>
+      <div class="map-panel" data-map-panel aria-live="polite">
+        <p class="map-panel-state" data-map-state>Select a state</p>
+        <p class="map-panel-text" data-map-text>See how we can help practices there.</p>
+        <a class="btn btn-accent" href="/contact/" data-map-cta>Get a Free Billing Review</a>
+      </div>
+    </div>
+    <div class="us-map-wrap">
+      ${usMap()}
+      <div class="map-tip" data-map-tip hidden></div>
+    </div>
+  </div>
+</section>
+
 <section class="section section-alt">
   <div class="container audit-grid">
     <div>
@@ -122,13 +155,14 @@ ${statBand(STATS)}
         intro: 'If you recognise more than one, a billing review is worth an hour of your time.',
         align: 'left',
       })}
-      <ul class="pain-list">
-        <li>${icon('check', 'icon icon-sm')} Claims and payments are not followed up consistently</li>
-        <li>${icon('check', 'icon icon-sm')} Accounts receivable is aging past 90 or 120 days</li>
-        <li>${icon('check', 'icon icon-sm')} Patient balances keep climbing and rarely get collected</li>
-        <li>${icon('check', 'icon icon-sm')} You cannot get a straight answer on where claims stand</li>
-        <li>${icon('check', 'icon icon-sm')} Collections are drifting down and nobody can say why</li>
+      <ul class="pain-list pain-check" data-pain>
+        <li><label><input type="checkbox" name="challenges" value="Claims and payments are not followed up consistently" form="audit"><span class="pain-box" aria-hidden="true">${icon('check', 'icon icon-sm')}</span><span>Claims and payments are not followed up consistently</span></label></li>
+        <li><label><input type="checkbox" name="challenges" value="Accounts receivable is aging past 90 or 120 days" form="audit"><span class="pain-box" aria-hidden="true">${icon('check', 'icon icon-sm')}</span><span>Accounts receivable is aging past 90 or 120 days</span></label></li>
+        <li><label><input type="checkbox" name="challenges" value="Patient balances keep climbing and rarely get collected" form="audit"><span class="pain-box" aria-hidden="true">${icon('check', 'icon icon-sm')}</span><span>Patient balances keep climbing and rarely get collected</span></label></li>
+        <li><label><input type="checkbox" name="challenges" value="You cannot get a straight answer on where claims stand" form="audit"><span class="pain-box" aria-hidden="true">${icon('check', 'icon icon-sm')}</span><span>You cannot get a straight answer on where claims stand</span></label></li>
+        <li><label><input type="checkbox" name="challenges" value="Collections are drifting down and nobody can say why" form="audit"><span class="pain-box" aria-hidden="true">${icon('check', 'icon icon-sm')}</span><span>Collections are drifting down and nobody can say why</span></label></li>
       </ul>
+      <p class="pain-meter" data-pain-meter aria-live="polite">Tick what applies. Your answers are sent with the form.</p>
     </div>
     <div class="audit-form">
       ${leadForm({ heading: 'Claim your free practice audit', id: 'audit' })}
@@ -280,6 +314,7 @@ export function specialtiesPage() {
 
 <section class="section section-alt">
   <div class="container narrow">
+    <figure class="photo photo-banner"><img src="/assets/img/clinician-notes.webp" alt="Clinician writing notes at a desk" width="900" height="1100" loading="lazy" decoding="async"></figure>
     ${sectionHead({
       title: 'Why specialty matters in billing',
       intro: 'Three things change from one specialty to the next, and each one costs money when it is handled by a generalist.',
@@ -309,6 +344,7 @@ export function compliancePage() {
 
 <section class="section">
   <div class="container narrow">
+    <figure class="photo photo-wide"><img src="/assets/img/stethoscope-records.webp" alt="Stethoscope resting on medical records" width="1200" height="700" loading="lazy" decoding="async"></figure>
     <div class="callout-box">
       ${icon('shield', 'icon')}
       <div><h2>${baa.title}</h2><p>${baa.text}</p></div>
@@ -406,6 +442,7 @@ export function aboutPage() {
 
 <section class="section">
   <div class="container narrow prose">
+    <figure class="photo photo-wide"><img src="/assets/img/billing-review.webp" alt="Two people reviewing figures on a billing report" width="1200" height="800" loading="lazy" decoding="async"></figure>
     <h2>Who we are</h2>
     <p>Mahastar Medical Billing LLC is based in Virginia and works with practices across all fifty states. We are deliberately small enough that the person handling your claims is someone you can name.</p>
 
@@ -450,6 +487,7 @@ export function contactPage() {
         <li>${icon('clock', 'icon')}<div><h3>Hours</h3><span>${site.hours}</span></div></li>
         <li>${icon('pin', 'icon')}<div><h3>Based in</h3><span>${site.location}</span></div></li>
       </ul>
+      <figure class="photo photo-tall"><img src="/assets/img/front-desk.webp" alt="Patient paying at a clinic front desk" width="900" height="1100" loading="lazy" decoding="async"></figure>
       <div class="contact-note">
         <h3>Before you write</h3>
         <p>Please do not include patient health information in this form. If you need to share records or claim detail, we will set up a secure channel first.</p>
