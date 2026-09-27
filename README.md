@@ -102,11 +102,13 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
       notification procedure), add each to `safeguards` in `src/data.js` (it
       appears on the `/compliance/` page) and, if relevant, the FAQ. Publish nothing before it is true: a
       practice's compliance officer can ask you to evidence any of it.
-- [x] **Logo** — navy/green M-and-star mark in `public/assets/` (logo.svg,
-      logo-light.svg for dark backgrounds, favicon.svg). Site palette matches:
-      `--brand: #1D2A44`, `--accent: #00A896`.
-- [ ] **Full logo lockup** — the web mark is the star alone. For print,
-      letterheads and social profiles, get the full artwork (with the M, cross
-      and stethoscope) as an original vector from the designer.
+- [x] **Logo** — full Mahastar mark (M, cross, star, stethoscope) from the
+      designer artwork, as transparent PNGs in `public/assets/`: `logo-mark.png`
+      (header), `logo-mark-light.png` (dark footer), `logo-full.png` /
+      `logo-full-light.png` (full lockup with wordmark), `og-image.png` (social
+      preview), `favicon-32.png` and `apple-touch-icon.png`.
+- [ ] **Vector logo** — the PNGs were cut from a 1200px raster. Ask the
+      designer for the original SVG/AI/EPS for print and very large sizes, then
+      swap the files in place (same names).
 - [ ] **Testimonials** — deliberately omitted. Add only with written client
       permission, and take care not to identify patients.

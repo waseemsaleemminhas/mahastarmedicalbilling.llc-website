@@ -92,9 +92,9 @@ ul { margin: 0; }
 .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 76px; }
 .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; font-weight: 800; color: var(--brand); font-size: 1.22rem; line-height: 1.05; letter-spacing: -.02em; }
-.brand-text small { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.brand-text small { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #0A8F68; }
 .brand-light .brand-text { color: #fff; }
-.brand-light .brand-text small { color: #9aa6b8; }
+.brand-light .brand-text small { color: #3CC49A; }
 
 .primary-nav { display: flex; align-items: center; gap: 26px; }
 .primary-nav > ul { display: flex; align-items: center; gap: 26px; list-style: none; padding: 0; }

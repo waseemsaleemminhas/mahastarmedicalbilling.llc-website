@@ -44,11 +44,13 @@ export function page({ path, title, description, body, bodyClass = '' }) {
 <title>${title}</title>
 <meta name="description" content="${description}">
 <link rel="canonical" href="${canonical}">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="${site.domain}/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,7 +90,7 @@ ${JSON.stringify({
 <header class="site-header">
   <div class="container nav-bar">
     <a class="brand" href="/">
-      <img src="/assets/logo.svg" alt="" width="38" height="38">
+      <img src="/assets/logo-mark.png" alt="" width="49" height="46">
       <span class="brand-text">Mahastar<small>Medical Billing LLC</small></span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
@@ -111,7 +113,7 @@ ${body}
   <div class="container footer-top">
     <div class="footer-brand">
       <a class="brand brand-light" href="/">
-        <img src="/assets/logo-light.svg" alt="" width="38" height="38">
+        <img src="/assets/logo-mark-light.png" alt="" width="49" height="46">
         <span class="brand-text">Mahastar<small>Medical Billing LLC</small></span>
       </a>
       <p>${site.name} handles medical billing, coding, credentialing and revenue cycle management so healthcare practices can focus on patient care.</p>
