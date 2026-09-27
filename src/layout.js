@@ -133,6 +133,7 @@ ${body}
       <ul>
         <li><a href="/about/">About Us</a></li>
         <li><a href="/specialties/">Specialties</a></li>
+        <li><a href="/compliance/">HIPAA &amp; Compliance</a></li>
         <li><a href="/pricing/">Pricing</a></li>
         <li><a href="/contact/">Contact</a></li>
       </ul>
@@ -145,7 +146,7 @@ ${body}
   </div>
   <div class="container footer-bottom">
     <p>&copy; <span data-year>2026</span> ${site.name}. All rights reserved.</p>
-    <p class="footer-legal"><a href="/privacy/">Privacy Policy</a> · <a href="/contact/">Contact</a></p>
+    <p class="footer-legal"><a href="/privacy/">Privacy Policy</a> · <a href="/compliance/">HIPAA &amp; Compliance</a> · <a href="/contact/">Contact</a></p>
   </div>
 </footer>
 

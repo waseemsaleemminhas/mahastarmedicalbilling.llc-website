@@ -174,6 +174,20 @@ export const specialties = [
   'Neurology', 'Ophthalmology', 'Laboratory', 'Home Health',
 ];
 
+// HIPAA & Compliance page (/compliance/). Only list safeguards that are in
+// place today — a practice's compliance officer can ask for evidence of any of
+// them. Add MFA, a device and email policy, or a written breach notification
+// procedure here once each one actually exists.
+export const baa = {
+  title: 'Business associate agreement, signed first',
+  text: 'We sign your business associate agreement before we are given access to any protected health information. If your practice does not have one of its own, tell us and we will work through one with you. Nothing starts until it is signed.',
+};
+
+export const safeguards = [
+  ['HIPAA-trained staff', 'Everyone who works on your account completes HIPAA training before they are given access to it.'],
+  ['Access limited to your account team', 'Only the people assigned to your practice can reach your data. Nobody else on our team is given access.'],
+];
+
 export const differentiators = [
   ['Dedicated account manager', 'One named contact who knows your practice, your payers and your history, rather than a ticket queue.'],
   ['Transparent, percentage-based pricing', 'A single percentage of what we actually collect. No setup fees, no per-claim charges, no annual minimum.'],

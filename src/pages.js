@@ -1,4 +1,4 @@
-import { site, services, specialties, differentiators, process, faqs } from './data.js';
+import { site, services, specialties, differentiators, process, faqs, safeguards, baa } from './data.js';
 import { icon } from './layout.js';
 import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
@@ -42,6 +42,16 @@ export function home() {
 </section>
 
 ${statBand(STATS)}
+
+<section class="trust-strip" aria-label="HIPAA and compliance">
+  <div class="container trust-grid">
+    <div class="trust-item">${icon('shield', 'icon')}<span><strong>BAA signed</strong> before any PHI access</span></div>
+    <div class="trust-item">${icon('shield', 'icon')}<span><strong>HIPAA-trained</strong> staff</span></div>
+    <div class="trust-item">${icon('shield', 'icon')}<span><strong>Access limited</strong> to your account team</span></div>
+    <div class="trust-item">${icon('shield', 'icon')}<span><strong>${specialties.length}+ specialties</strong> supported</span></div>
+    <a class="trust-link" href="/compliance/">How we protect patient data →</a>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
@@ -286,6 +296,52 @@ ${ctaBand()}
 `;
 }
 
+export function compliancePage() {
+  const feature = ([t, d]) => `<div class="feature"><span class="feature-check">${icon('shield', 'icon icon-sm')}</span><div><h3>${t}</h3><p>${d}</p></div></div>`;
+  return `
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow light">HIPAA &amp; Compliance</p>
+    <h1>How we protect your patients' data</h1>
+    <p class="lead">As your billing company we are a HIPAA business associate. Here is what that means in practice.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="callout-box">
+      ${icon('shield', 'icon')}
+      <div><h2>${baa.title}</h2><p>${baa.text}</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container narrow">
+    ${sectionHead({
+      eyebrow: 'Safeguards',
+      title: 'What is in place on every account',
+      intro: 'We only list controls we operate today. As we add more, they will appear here.',
+    })}
+    <div class="feature-list wide two-up">
+      ${safeguards.map(feature).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow prose">
+    <h2>Sharing records with us</h2>
+    <p>Please do not send patient information through the contact form on this website or by ordinary email. During onboarding we agree a secure way to reach what we need, normally direct access to your own systems.</p>
+    <h2>Questions from your compliance officer</h2>
+    <p>If your practice needs more detail for its own risk assessment, email <a href="mailto:${site.email}">${site.email}</a> and we will answer in writing.</p>
+  </div>
+</section>
+
+${ctaBand()}
+`;
+}
+
 export function pricingPage() {
   return `
 <section class="page-hero">
@@ -362,7 +418,7 @@ export function aboutPage() {
     <p>Reporting goes out monthly, in plain language: what was billed, what was collected, what was denied and what we are doing about it. If a number moved the wrong way, the report says so rather than burying it.</p>
 
     <h2>Compliance</h2>
-    <p>We are a HIPAA business associate, and we act like one. A business associate agreement is signed before we are given access to any patient data — if your practice does not have one, we will work through it with you rather than leaving it to chance. Everyone who works on your account completes HIPAA training, and access is limited to the people assigned to it.</p>
+    <p>We are a HIPAA business associate, and we act like one. A business associate agreement is signed before we are given access to any patient data — if your practice does not have one, we will work through it with you rather than leaving it to chance. Everyone who works on your account completes HIPAA training, and access is limited to the people assigned to it. <a href="/compliance/">More on HIPAA &amp; compliance</a>.</p>
     <p>Please do not send patient information through the contact form on this website or by ordinary email. During onboarding we agree a secure way to reach what we need, normally direct access to your own systems.</p>
 
     <h2>Working with us</h2>

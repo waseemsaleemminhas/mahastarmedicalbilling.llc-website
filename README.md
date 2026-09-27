@@ -99,8 +99,8 @@ These are placeholders in `src/data.js` and `src/pages.js`, and must be fixed:
 - [ ] **Further HIPAA safeguards** — the site claims only a signed BAA and
       HIPAA-trained staff, because that is what is in place. As controls go in
       (MFA on systems holding PHI, a device and email policy, a written breach
-      notification procedure), add each to the FAQ in `src/data.js` and consider
-      a dedicated compliance page. Publish nothing before it is true: a
+      notification procedure), add each to `safeguards` in `src/data.js` (it
+      appears on the `/compliance/` page) and, if relevant, the FAQ. Publish nothing before it is true: a
       practice's compliance officer can ask you to evidence any of it.
 - [x] **Logo** — navy/green M-and-star mark in `public/assets/` (logo.svg,
       logo-light.svg for dark backgrounds, favicon.svg). Site palette matches:
