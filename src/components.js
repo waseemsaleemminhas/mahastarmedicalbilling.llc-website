@@ -1,4 +1,5 @@
 import { icon } from './layout.js';
+import { serviceArt } from './serviceicons.js';
 import { site } from './data.js';
 
 /** Lead capture form. Posts to Cloudflare Pages Function at /api/lead. */
@@ -46,7 +47,7 @@ export function sectionHead({ eyebrow, title, intro, align = 'center' }) {
 
 export function serviceCard(s) {
   return `<article class="service-card">
-    <span class="service-icon">${icon(s.icon)}</span>
+    <span class="service-icon">${serviceArt(s.slug, icon(s.icon))}</span>
     <h3>${s.title}</h3>
     <p>${s.short}</p>
     <a class="link-arrow" href="/services/${s.slug}/">Explore more</a>

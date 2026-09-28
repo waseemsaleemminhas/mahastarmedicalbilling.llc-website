@@ -236,6 +236,95 @@ ul { margin: 0; }
 .service-card p { color: var(--muted); flex: 1; margin: 0; }
 .service-card h3 { font-size: 1.14rem; }
 
+/* ---------- Animated service illustrations ---------- */
+.service-icon {
+  --ico-main: var(--brand); --ico-accent: var(--accent);
+  position: relative; width: 74px; height: 74px; border-radius: 20px;
+  background: #e6f6f3; transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.service-icon .svc-art { width: 56px; height: 56px; overflow: visible; }
+.service-card:hover .service-icon, .service-card:focus-within .service-icon {
+  --ico-main: #fff; --ico-accent: #7ff0dd;
+  transform: scale(1.06); box-shadow: 0 0 0 6px rgba(127, 240, 221, .14);
+}
+.service-card.is-live .service-icon::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(0, 168, 150, .35); animation: svc-ring 2.8s ease-out infinite;
+}
+.svc-art .m { stroke: var(--ico-main); transition: stroke .3s ease; }
+.svc-art .a { stroke: var(--ico-accent); transition: stroke .3s ease; }
+.svc-art .coin { fill: var(--ico-accent); stroke: none; transition: fill .3s ease; }
+.svc-art .coin-t { fill: #fff; stroke: none; font: 800 15px Manrope, system-ui, sans-serif; }
+.svc-art .coin-s { stroke: #fff; }
+.svc-art .coin-f { fill: #fff; stroke: none; }
+.service-card:hover .svc-art .coin-t, .service-card:focus-within .svc-art .coin-t,
+.service-card:hover .svc-art .coin-f, .service-card:focus-within .svc-art .coin-f { fill: var(--brand); }
+.service-card:hover .svc-art .coin-s, .service-card:focus-within .svc-art .coin-s { stroke: var(--brand); }
+.svc-art .scan { fill: var(--ico-accent); opacity: 0; stroke: none; }
+.svc-art .deny { stroke: #e5484d; opacity: 0; }
+.svc-art .step { fill: var(--ico-main); stroke: none; transition: fill .3s ease; }
+.svc-art .bar { fill: var(--ico-main); stroke: none; }
+.svc-art .bar.b3 { fill: var(--ico-accent); }
+.svc-art .flag { fill: var(--ico-accent); opacity: .3; stroke: none; }
+.svc-art .lens { stroke: var(--ico-main); fill: var(--ico-accent); fill-opacity: .14; }
+.svc-art .pop, .svc-art .stamp, .svc-art .beat, .svc-art .bar, .svc-art .step,
+.svc-art .nudge-l, .svc-art .nudge-r { transform-box: fill-box; transform-origin: center; }
+.svc-art .bar { transform-origin: center bottom; }
+.svc-art .spin { transform-box: view-box; transform-origin: 32px 32px; }
+.svc-art .draw, .svc-art .draw-check, .svc-art .draw-trend { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* Animate only while on screen or hovered; the resting state is the finished picture. */
+.service-card.is-live .svc-art *, .service-card:hover .svc-art * { animation-iteration-count: infinite; }
+.is-live .svc-art .draw, .service-card:hover .svc-art .draw { animation: svc-draw 4s ease-out infinite; }
+.is-live .svc-art .d2, .service-card:hover .svc-art .d2 { animation-delay: .3s; }
+.is-live .svc-art .d3, .service-card:hover .svc-art .d3 { animation-delay: .6s; }
+.is-live .svc-art .pop, .service-card:hover .svc-art .pop { animation: svc-pop 4s ease-out infinite; }
+.is-live .svc-art .stamp, .service-card:hover .svc-art .stamp { animation: svc-stamp 4s ease-out infinite; }
+.is-live .svc-art .scan, .service-card:hover .svc-art .scan { animation: svc-scan 2.4s ease-in-out infinite; }
+.is-live .svc-art .nudge-l, .service-card:hover .svc-art .nudge-l { animation: svc-nudge-l 2.4s ease-in-out infinite; }
+.is-live .svc-art .nudge-r, .service-card:hover .svc-art .nudge-r { animation: svc-nudge-r 2.4s ease-in-out infinite; }
+.is-live .svc-art .blink, .service-card:hover .svc-art .blink { animation: svc-blink 1.2s steps(2, jump-none) infinite; }
+.is-live .svc-art .spin, .service-card:hover .svc-art .spin { animation: svc-spin 8s linear infinite; }
+.is-live .svc-art .beat, .service-card:hover .svc-art .beat { animation: svc-beat 2s ease-in-out infinite; }
+.is-live .svc-art .step, .service-card:hover .svc-art .step { animation: svc-step 4s ease-in-out infinite; }
+.is-live .svc-art .s2, .service-card:hover .svc-art .s2 { animation-delay: 1s; }
+.is-live .svc-art .s3, .service-card:hover .svc-art .s3 { animation-delay: 2s; }
+.is-live .svc-art .s4, .service-card:hover .svc-art .s4 { animation-delay: 3s; }
+.is-live .svc-art .deny, .service-card:hover .svc-art .deny { animation: svc-deny 4s ease-in-out infinite; }
+.is-live .svc-art .draw-check, .service-card:hover .svc-art .draw-check { animation: svc-check 4s ease-out infinite; }
+.is-live .svc-art .bar, .service-card:hover .svc-art .bar { animation: svc-grow 4s ease-out infinite; }
+.is-live .svc-art .b2, .service-card:hover .svc-art .b2 { animation-delay: .25s; }
+.is-live .svc-art .b3, .service-card:hover .svc-art .b3 { animation-delay: .5s; }
+.is-live .svc-art .draw-trend, .service-card:hover .svc-art .draw-trend { animation: svc-trend 4s ease-out infinite; }
+.is-live .svc-art .arrow-in, .service-card:hover .svc-art .arrow-in { animation: svc-arrow 4s ease-out infinite; }
+.is-live .svc-art .sweep, .service-card:hover .svc-art .sweep { animation: svc-sweep 5s ease-in-out infinite; }
+.is-live .svc-art .flag, .service-card:hover .svc-art .flag { animation: svc-flag 5s ease-in-out infinite; }
+
+@keyframes svc-ring { 0% { box-shadow: 0 0 0 0 rgba(0,168,150,.35); } 70%, 100% { box-shadow: 0 0 0 12px rgba(0,168,150,0); } }
+@keyframes svc-draw { 0%, 6% { stroke-dashoffset: 1; } 35%, 100% { stroke-dashoffset: 0; } }
+@keyframes svc-pop { 0%, 40% { transform: scale(0); } 52% { transform: scale(1.2); } 60%, 90% { transform: scale(1); } 100% { transform: scale(0); } }
+@keyframes svc-stamp { 0%, 42% { transform: scale(1.9) rotate(-20deg); opacity: 0; } 54% { transform: scale(.9) rotate(0); opacity: 1; } 62%, 90% { transform: scale(1); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
+@keyframes svc-scan { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .35; } 85% { opacity: .35; } 100% { transform: translateY(21px); opacity: 0; } }
+@keyframes svc-nudge-l { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(0); } }
+@keyframes svc-nudge-r { 0%, 100% { transform: translateX(3px); } 50% { transform: translateX(0); } }
+@keyframes svc-blink { 0% { opacity: 1; } 100% { opacity: .15; } }
+@keyframes svc-spin { to { transform: rotate(360deg); } }
+@keyframes svc-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+@keyframes svc-step { 0% { fill: var(--ico-accent); transform: scale(1.6); } 20% { fill: var(--ico-accent); transform: scale(1.3); } 28%, 100% { fill: var(--ico-main); transform: scale(1); } }
+@keyframes svc-deny { 0%, 28% { opacity: 1; transform: none; } 40%, 100% { opacity: 0; } }
+@keyframes svc-check { 0%, 38% { stroke-dashoffset: 1; } 60%, 100% { stroke-dashoffset: 0; } }
+@keyframes svc-grow { 0%, 5% { transform: scaleY(.15); } 35%, 100% { transform: scaleY(1); } }
+@keyframes svc-trend { 0%, 30% { stroke-dashoffset: 1; } 62%, 100% { stroke-dashoffset: 0; } }
+@keyframes svc-arrow { 0%, 58% { opacity: 0; } 68%, 100% { opacity: 1; } }
+@keyframes svc-sweep {
+  0%, 8% { transform: translate(0, 0); }
+  25% { transform: translate(-16px, -24px); }
+  40% { transform: translate(-6px, -16px); }
+  55%, 80% { transform: translate(-12px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes svc-flag { 0%, 50% { opacity: .12; } 58%, 80% { opacity: .75; } 100% { opacity: .3; } }
+
 /* ---------- Split layouts ---------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .split-reverse .split-copy { order: 2; }

@@ -200,3 +200,15 @@
     msg.value = 'Practice located in ' + st.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() + '. ';
   }
 })();
+
+// Service card illustrations animate only while on screen (saves battery, and
+// mobile has no hover). Reduced-motion users get the still, finished icon via CSS.
+(function () {
+  'use strict';
+  var cards = document.querySelectorAll('.service-card');
+  if (!cards.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
+  }, { threshold: 0.35 });
+  cards.forEach(function (c) { io.observe(c); });
+})();
