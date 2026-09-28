@@ -232,3 +232,24 @@
     }
   }, 1600);
 })();
+
+// Specialties page: the "go straight to your specialty" picker.
+// The grid below links to the same pages, so this is an enhancement only —
+// with JavaScript off the page still works, it just has no shortcut.
+(function () {
+  'use strict';
+  document.querySelectorAll('[data-spec-picker]').forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var select = form.querySelector('select');
+      if (select && select.value) window.location.href = select.value;
+    });
+    // Choosing from the list is intent enough; no need to press Go as well.
+    var select = form.querySelector('select');
+    if (select) {
+      select.addEventListener('change', function () {
+        if (select.value) window.location.href = select.value;
+      });
+    }
+  });
+})();

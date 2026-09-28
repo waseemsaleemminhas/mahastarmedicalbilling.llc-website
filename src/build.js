@@ -1,7 +1,8 @@
 import { mkdir, writeFile, cp, rm } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { site, services } from './data.js';
+import { site, services, specialties } from './data.js';
+import { specialtyPages } from './specialtydetail.js';
 import { page } from './layout.js';
 import * as P from './pages.js';
 
@@ -22,6 +23,12 @@ const routes = [
     title: `${s.title} Services | ${site.name}`,
     description: s.short,
     body: P.servicePage(s),
+  })),
+  ...specialtyPages(specialties).map((s) => ({
+    path: `/specialties/${s.slug}/`,
+    title: `${s.name} Medical Billing | ${site.name}`,
+    description: s.lead,
+    body: P.specialtyPage(s),
   })),
 ];
 

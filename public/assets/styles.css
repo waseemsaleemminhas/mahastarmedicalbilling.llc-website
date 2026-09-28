@@ -628,6 +628,60 @@ ul { margin: 0; }
   .topbar-links { flex-direction: column; gap: 2px; align-items: center; padding: 6px 0; }
 }
 
+/* ---------- Specialty page additions ---------- */
+
+/* Grid cards became links; the anchor carries the layout, the li the card. */
+.specialty-grid li { padding: 0; }
+.specialty-grid li > a {
+  display: flex; align-items: center; gap: 14px; width: 100%;
+  padding: 12px 14px; text-decoration: none; color: inherit; border-radius: 12px;
+}
+.spec-go { margin-left: auto; color: var(--accent-600); font-weight: 800; opacity: 0; transition: opacity .2s ease, transform .2s ease; }
+.specialty-grid li:hover .spec-go { opacity: 1; transform: translateX(3px); color: #fff; }
+.specialty-grid li:focus-within { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Specialty picker in the page hero */
+.spec-picker { margin-top: 26px; max-width: 520px; }
+.spec-picker label { display: block; font-weight: 700; font-size: .87rem; color: #c3cdea; margin-bottom: 8px; }
+.spec-picker-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.spec-picker select {
+  flex: 1 1 260px; font: inherit; padding: 12px 14px; border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,.25); background: #fff; color: var(--ink);
+}
+.spec-picker select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,168,150,.3); }
+
+/* Quick links strip */
+.quicklinks { background: var(--bg-tint); border-bottom: 1px solid var(--line); padding: 14px 0; }
+.quicklinks-inner { display: flex; align-items: center; gap: 12px 18px; flex-wrap: wrap; }
+.quicklinks-label { font-weight: 800; font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.quicklinks ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+.quicklinks a {
+  display: inline-block; padding: 7px 14px; border-radius: 999px; background: #fff;
+  border: 1px solid var(--line); text-decoration: none; font-weight: 600; font-size: .9rem; color: var(--brand);
+}
+.quicklinks a:hover { background: var(--accent); border-color: var(--accent); color: #05262c; }
+
+/* Pitfalls list on a specialty page */
+.pitfall-list { list-style: none; padding: 0; display: grid; gap: 12px; }
+.pitfall-list li {
+  display: flex; gap: 12px; align-items: flex-start; background: #fff;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0; padding: 16px 20px; color: var(--body);
+}
+.pitfall-list .icon { color: var(--accent-600); margin-top: 3px; }
+
+.center-chips { justify-content: center; }
+.center-chips li { background: #fff; border: 1px solid var(--line); }
+.center-chips li a { color: var(--brand); text-decoration: none; font-weight: 600; }
+.center-chips li:hover { background: var(--accent); border-color: var(--accent); }
+.center-chips li:hover a { color: #05262c; }
+
+.notlisted-form { max-width: 560px; margin-inline: auto; }
+
+@media (max-width: 560px) {
+  .spec-picker select, .spec-picker .btn { width: 100%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

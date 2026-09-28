@@ -1,6 +1,7 @@
 import { site, services, specialties, specialtyNotes, differentiators, process, faqs, safeguards, baa } from './data.js';
 import { icon } from './layout.js';
 import { specialtyArt } from './specialtyicons.js';
+import { specialtyPages, slugify } from './specialtydetail.js';
 import { US_STATES } from './usmap.js';
 import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
@@ -298,6 +299,26 @@ export function specialtiesPage() {
     <p class="eyebrow light">Specialties</p>
     <h1>Specialty-specific medical billing</h1>
     <p class="lead">Coding rules and denial patterns vary widely by specialty. We assign billers who already know yours.</p>
+    <form class="spec-picker" data-spec-picker>
+      <label for="spec-pick">Go straight to your specialty</label>
+      <div class="spec-picker-row">
+        <select id="spec-pick" name="specialty">
+          <option value="">Choose a specialty…</option>
+          ${specialties.map((s) => `<option value="/specialties/${slugify(s)}/">${s}</option>`).join('\n          ')}
+        </select>
+        <button class="btn btn-accent" type="submit">Go</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="quicklinks">
+  <div class="container quicklinks-inner">
+    <span class="quicklinks-label">Jump to</span>
+    <ul>
+      ${['Behavioral Health', 'Physical Therapy', 'Family & Primary Care', 'Cardiology', 'Orthopedics', 'Pediatrics']
+        .map((s) => `<li><a href="/specialties/${slugify(s)}/">${s}</a></li>`).join('\n      ')}
+    </ul>
   </div>
 </section>
 
@@ -308,8 +329,20 @@ export function specialtiesPage() {
       intro: 'This is not an exhaustive list. If your specialty is not here, ask — the underlying process is the same and we will tell you honestly whether we are a good fit.',
     })}
     <ul class="specialty-grid">
-      ${specialties.map((s) => `<li><span class="spec-icon">${specialtyArt(s, icon('check', 'icon icon-sm'))}</span><span class="spec-text"><strong>${s}</strong>${specialtyNotes[s] ? `<small>${specialtyNotes[s]}</small>` : ''}</span></li>`).join('\n      ')}
+      ${specialties.map((s) => `<li><a href="/specialties/${slugify(s)}/"><span class="spec-icon">${specialtyArt(s, icon('check', 'icon icon-sm'))}</span><span class="spec-text"><strong>${s}</strong>${specialtyNotes[s] ? `<small>${specialtyNotes[s]}</small>` : ''}</span><span class="spec-go" aria-hidden="true">→</span></a></li>`).join('\n      ')}
     </ul>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container narrow">
+    ${sectionHead({
+      title: 'Not seeing yours?',
+      intro: 'The list above is where we have depth, not a limit. Tell us your specialty and we will say plainly whether we are the right fit — and if we are not, we will say that too.',
+    })}
+    <div class="notlisted-form">
+      ${leadForm({ heading: 'Ask about your specialty', id: 'spec-ask' })}
+    </div>
   </div>
 </section>
 
@@ -325,6 +358,70 @@ export function specialtiesPage() {
       <div class="feature"><span class="feature-check">${icon('check', 'icon icon-sm')}</span><div><h3>Payer policies</h3><p>Coverage rules, authorization requirements and frequency limits differ by specialty and by payer. Knowing them prevents predictable denials.</p></div></div>
       <div class="feature"><span class="feature-check">${icon('check', 'icon icon-sm')}</span><div><h3>Documentation expectations</h3><p>What a payer expects in the note varies. Billers who know your specialty can flag a weak note before the claim goes out.</p></div></div>
     </div>
+  </div>
+</section>
+
+${ctaBand()}
+`;
+}
+
+/** One page per specialty. `s` comes from specialtyPages() in specialtydetail.js. */
+export function specialtyPage(s) {
+  const others = specialtyPages(specialties)
+    .filter((x) => x.slug !== s.slug)
+    .slice(0, 8);
+
+  return `
+<section class="page-hero">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/specialties/">Specialties</a> <span>/</span> <span aria-current="page">${s.name}</span>
+    </nav>
+    <p class="eyebrow light">Specialty billing</p>
+    <h1>${s.name} medical billing</h1>
+    <p class="lead">${s.lead}</p>
+    <a class="btn btn-accent" href="/contact/">Book a Free Consultation</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="split-copy">
+      <h2>What we handle for ${s.name.toLowerCase()} practices</h2>
+      <p>${specialtyNotes[s.name] || ''}</p>
+      <div class="feature-list">
+        ${s.handles.map(([t, d]) => `<div class="feature">
+          <span class="feature-check">${icon('check', 'icon icon-sm')}</span>
+          <div><h3>${t}</h3><p>${d}</p></div>
+        </div>`).join('\n        ')}
+      </div>
+    </div>
+    <aside class="sticky-form">
+      ${leadForm({ heading: `Talk about ${s.name.toLowerCase()} billing`, compact: true, id: 'spec' })}
+    </aside>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container narrow">
+    ${sectionHead({
+      eyebrow: 'Common pitfalls',
+      title: `Where ${s.name.toLowerCase()} claims go wrong`,
+      intro: 'These are the errors we look for first when reviewing a practice in this specialty. If any sound familiar, a billing review will tell you what they are costing.',
+    })}
+    <ul class="pitfall-list">
+      ${s.pitfalls.map((p) => `<li>${icon('shield', 'icon icon-sm')}<span>${p}</span></li>`).join('\n      ')}
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    ${sectionHead({ title: 'Other specialties we support' })}
+    <ul class="specialty-chips center-chips">
+      ${others.map((o) => `<li><a href="/specialties/${o.slug}/">${o.name}</a></li>`).join('\n      ')}
+      <li class="more"><a href="/specialties/">View all</a></li>
+    </ul>
   </div>
 </section>
 
