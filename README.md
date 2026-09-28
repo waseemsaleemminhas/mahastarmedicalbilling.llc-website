@@ -54,20 +54,36 @@ Pushes to the production branch redeploy. Other branches get preview URLs.
 
 ## Contact form email
 
-Forms POST JSON to `/api/lead`, handled by `functions/api/lead.js`. Until email is
-configured the endpoint accepts submissions and logs them, so nothing 500s — but
-**nothing reaches your inbox either**. To receive them, set these in the Pages
-project under Settings → Environment variables:
+Forms POST JSON to `/api/lead`, handled by `functions/api/lead.js`. Until a
+provider key is set the endpoint accepts submissions and logs them, so nothing
+500s — but **nothing reaches your inbox either**.
+
+Two providers are supported. Whichever key is present is used; Brevo is checked
+first. Set these in the Pages project under Settings → Environment variables:
 
 | Variable | Value |
 | --- | --- |
-| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) — store as an **encrypted secret** |
+| `BREVO_API_KEY` *or* `RESEND_API_KEY` | API key — store as an **encrypted secret** |
 | `LEAD_TO` | Where enquiries go, e.g. `info@mahastarmedicalbilling.llc` |
 | `LEAD_FROM` | A verified sender on your domain, e.g. `website@mahastarmedicalbilling.llc` |
 
-The sending domain has to be verified in Resend first, or mail is rejected. Any
-other provider works too — replace `deliver()` in `functions/api/lead.js`; nothing
-else depends on Resend.
+**Environment variables only apply to new deployments.** After adding them,
+retry the latest deployment or push a commit, or the running site will not see
+them.
+
+The sending domain has to be authenticated with the provider (SPF and DKIM
+records) before mail is accepted. To add a different provider, add a branch to
+`deliver()` in `functions/api/lead.js`.
+
+### This domain's current mail setup
+
+- **Receiving** is on Cloudflare Email Routing (MX records point at
+  `route1/2/3.mx.cloudflare.net`). Email Routing forwards; it does not send.
+- **SPF** is `v=spf1 include:_spf.mx.cloudflare.net ~all`, which authorizes
+  Cloudflare only. Sending through Brevo or Resend needs their `include:` added
+  to that same record — one TXT record, not two, or SPF breaks.
+- A `brevo-code` TXT record is already present, so Brevo setup was started.
+  Finish domain authentication in Brevo and use `BREVO_API_KEY`.
 
 The form includes a hidden honeypot field and server-side validation. For heavier
 bot traffic, add Cloudflare Turnstile.

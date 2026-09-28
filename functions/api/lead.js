@@ -1,17 +1,21 @@
 /**
  * Cloudflare Pages Function: POST /api/lead
  *
- * Receives consultation requests from the site forms and emails them on via
- * the Resend API. Configure these in the Pages project (Settings → Environment
- * variables) — store RESEND_API_KEY as an encrypted secret:
+ * Receives consultation requests from the site forms and emails them on.
  *
- *   RESEND_API_KEY   Resend API key
- *   LEAD_TO          where enquiries should land, e.g. info@mahastarmedicalbilling.llc
+ * Two providers are supported; whichever key is set is the one used. Set them
+ * in the Pages project (Settings → Environment variables), with the API key
+ * stored as an encrypted secret:
+ *
+ *   BREVO_API_KEY    Brevo (api.brevo.com) — checked first
+ *   RESEND_API_KEY   Resend (api.resend.com) — used if no Brevo key
+ *   LEAD_TO          where enquiries land, e.g. info@mahastarmedicalbilling.llc
  *   LEAD_FROM        a verified sender on your domain, e.g. website@mahastarmedicalbilling.llc
  *
- * Without RESEND_API_KEY the endpoint still accepts and logs submissions so the
- * site works before email is wired up. Swap in another provider by replacing
- * deliver() — nothing else depends on Resend.
+ * With neither key set the endpoint still accepts and logs submissions, so the
+ * site works before email is wired up — but nothing reaches an inbox. To add a
+ * different provider, add a branch to deliver(); nothing else depends on which
+ * one is in use.
  */
 
 const MAX_BODY_BYTES = 8_000;
@@ -51,23 +55,35 @@ async function deliver(env, data, meta) {
     `<table style="font-family:system-ui;font-size:14px;border-collapse:collapse">${rows}</table>` +
     `<p style="font-family:system-ui;font-size:12px;color:#6b7587">Received ${meta.at} · ${escapeHtml(meta.country)}</p>`;
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: env.LEAD_FROM || 'website@mahastarmedicalbilling.llc',
-      to: [env.LEAD_TO || 'info@mahastarmedicalbilling.llc'],
-      reply_to: data.email,
-      subject: `Consultation request — ${data.name}${data.practice ? ` (${data.practice})` : ''}`,
-      html,
-    }),
-  });
+  const from = env.LEAD_FROM || 'website@mahastarmedicalbilling.llc';
+  const to = env.LEAD_TO || 'info@mahastarmedicalbilling.llc';
+  // An email-only enquiry has no name, so fall back to the address itself.
+  const who = data.name || data.email;
+  const subject = `Consultation request — ${who}${data.practice ? ` (${data.practice})` : ''}`;
+
+  const res = env.BREVO_API_KEY
+    ? await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({
+          sender: { email: from, name: 'Mahastar Website' },
+          to: [{ email: to }],
+          replyTo: { email: data.email },
+          subject,
+          htmlContent: html,
+        }),
+      })
+    : await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from, to: [to], reply_to: data.email, subject, html }),
+      });
 
   if (!res.ok) {
-    throw new Error(`Email provider returned ${res.status}`);
+    // The body usually says why (unverified sender, bad key); keep it in the
+    // log so the cause is visible without reproducing the failure.
+    const detail = await res.text().catch(() => '');
+    throw new Error(`Email provider returned ${res.status} ${detail.slice(0, 300)}`);
   }
 }
 
@@ -103,7 +119,7 @@ export async function onRequestPost({ request, env }) {
     country: request.headers.get('cf-ipcountry') || 'unknown',
   };
 
-  if (!env.RESEND_API_KEY) {
+  if (!env.BREVO_API_KEY && !env.RESEND_API_KEY) {
     // Email is not configured yet; keep the submission in the logs so nothing
     // is silently dropped while the site is being set up.
     console.log('LEAD (email not configured)', JSON.stringify({ ...data, ...meta }));
