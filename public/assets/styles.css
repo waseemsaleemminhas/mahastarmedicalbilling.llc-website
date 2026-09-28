@@ -397,6 +397,14 @@ ul { margin: 0; }
 .specialty-grid li.spot { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 168, 150, .12), var(--shadow-sm); transform: translateY(-2px); }
 .specialty-grid li.spot .spec-icon { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(0, 168, 150, .14); }
 
+.specialty-grid { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+.specialty-grid li { align-items: flex-start; padding: 16px; }
+.spec-text { display: flex; flex-direction: column; gap: 4px; padding-top: 2px; }
+.spec-text strong { font-weight: 700; color: var(--ink); font-size: 1rem; line-height: 1.3; transition: color .25s ease; }
+.spec-text small { font-weight: 500; color: var(--muted); font-size: .88rem; line-height: 1.5; transition: color .25s ease; }
+.specialty-grid li:hover .spec-text strong { color: #fff; }
+.specialty-grid li:hover .spec-text small { color: rgba(255,255,255,.82); }
+
 .svc-art .fill-m { fill: var(--ico-main); stroke: none; transition: fill .3s ease; }
 .svc-art .ripple { stroke: var(--ico-accent); opacity: 0; }
 .svc-art .liquid { fill: var(--ico-accent); opacity: .35; stroke: none; }

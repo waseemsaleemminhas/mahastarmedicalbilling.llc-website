@@ -174,6 +174,31 @@ export const specialties = [
   'Neurology', 'Ophthalmology', 'Laboratory', 'Home Health',
 ];
 
+// One line per specialty, shown under its name on the Specialties page.
+// Keep each to what is specific about billing for that specialty.
+export const specialtyNotes = {
+  'Family & Primary Care': 'High-volume E/M visits, preventive care and chronic care management billed cleanly.',
+  'Internal Medicine': 'E/M level support, chronic condition coding and annual wellness visits.',
+  'Behavioral Health': 'Therapy time codes, authorizations and session limits tracked for every payer.',
+  'Psychiatry': 'Medication management, psychotherapy add-on codes and telehealth modifiers.',
+  'Cardiology': 'Diagnostics, device checks and procedures coded with the right professional and technical splits.',
+  'Orthopedics': 'Surgical global periods, modifiers and DME billed without missed charges.',
+  'Physical Therapy': 'Timed-unit billing, therapy caps and progress-note requirements handled.',
+  'Chiropractic': 'Spinal manipulation codes, AT modifiers and medical necessity documentation.',
+  'Dermatology': 'Biopsies, excisions and cosmetic versus medical services separated correctly.',
+  'Gastroenterology': 'Endoscopy and colonoscopy coding, including screening versus diagnostic rules.',
+  'Urgent Care': 'Fast turnaround on high-volume walk-in visits, procedures and on-site tests.',
+  'Pediatrics': 'Well-child visits, vaccine administration and Medicaid plans billed correctly.',
+  'OB/GYN': 'Global maternity packages, prenatal visits and gynecologic procedures.',
+  'Urology': 'In-office procedures, diagnostic testing and drug administration coding.',
+  'Pain Management': 'Injections, nerve blocks and prior authorizations kept on track.',
+  'Podiatry': 'Routine foot care rules, wound care and diabetic shoe billing.',
+  'Neurology': 'EEG, EMG and nerve conduction studies coded with the right components.',
+  'Ophthalmology': 'Eye exam codes, diagnostic imaging and medical versus vision plan billing.',
+  'Laboratory': 'Panels, medical necessity checks and high-volume claim submission.',
+  'Home Health': 'Episode-based billing, certifications and visit documentation kept aligned.',
+};
+
 // HIPAA & Compliance page (/compliance/). Only list safeguards that are in
 // place today — a practice's compliance officer can ask for evidence of any of
 // them. Add MFA, a device and email policy, or a written breach notification
