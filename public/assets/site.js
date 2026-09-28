@@ -205,10 +205,30 @@
 // mobile has no hover). Reduced-motion users get the still, finished icon via CSS.
 (function () {
   'use strict';
-  var cards = document.querySelectorAll('.service-card');
+  var cards = document.querySelectorAll('.service-card, .specialty-grid li');
   if (!cards.length || !('IntersectionObserver' in window)) return;
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
   }, { threshold: 0.35 });
   cards.forEach(function (c) { io.observe(c); });
+})();
+
+// Specialties page: a spotlight moves from one specialty to the next.
+// Pauses while the visitor is hovering the list; off for reduced motion.
+(function () {
+  'use strict';
+  var grid = document.querySelector('.specialty-grid');
+  if (!grid || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var items = grid.querySelectorAll('li');
+  var i = -1, paused = false;
+  grid.addEventListener('mouseenter', function () { paused = true; items.forEach(function (li) { li.classList.remove('spot'); }); });
+  grid.addEventListener('mouseleave', function () { paused = false; });
+  setInterval(function () {
+    if (paused || document.hidden) return;
+    if (items[i]) items[i].classList.remove('spot');
+    for (var n = 0; n < items.length; n++) {
+      i = (i + 1) % items.length;
+      if (items[i].classList.contains('is-live')) { items[i].classList.add('spot'); return; }
+    }
+  }, 1600);
 })();

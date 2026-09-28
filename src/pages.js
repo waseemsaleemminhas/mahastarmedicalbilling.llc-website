@@ -1,5 +1,6 @@
 import { site, services, specialties, differentiators, process, faqs, safeguards, baa } from './data.js';
 import { icon } from './layout.js';
+import { specialtyArt } from './specialtyicons.js';
 import { US_STATES } from './usmap.js';
 import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
@@ -307,7 +308,7 @@ export function specialtiesPage() {
       intro: 'This is not an exhaustive list. If your specialty is not here, ask — the underlying process is the same and we will tell you honestly whether we are a good fit.',
     })}
     <ul class="specialty-grid">
-      ${specialties.map((s) => `<li>${icon('check', 'icon icon-sm')}<span>${s}</span></li>`).join('\n      ')}
+      ${specialties.map((s) => `<li><span class="spec-icon">${specialtyArt(s, icon('check', 'icon icon-sm'))}</span><span>${s}</span></li>`).join('\n      ')}
     </ul>
   </div>
 </section>
