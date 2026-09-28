@@ -3,7 +3,7 @@ import { icon } from './layout.js';
 import { specialtyArt } from './specialtyicons.js';
 import { specialtyPages, slugify } from './specialtydetail.js';
 import { US_STATES } from './usmap.js';
-import { leadForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
+import { leadForm, emailForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
 
 // These tiles state commitments and facts about the service, not performance
 // claims — each one is true from day one and nothing here can be contradicted
@@ -337,11 +337,11 @@ export function specialtiesPage() {
 <section class="section section-alt">
   <div class="container narrow">
     ${sectionHead({
-      title: 'Not seeing yours?',
-      intro: 'The list above is where we have depth, not a limit. Tell us your specialty and we will say plainly whether we are the right fit — and if we are not, we will say that too.',
+      title: 'Couldn\'t find your specialty?',
+      intro: 'Leave your email and a billing specialist will come back to you within one business day.',
     })}
     <div class="notlisted-form">
-      ${leadForm({ heading: 'Ask about your specialty', id: 'spec-ask' })}
+      ${emailForm({ id: 'spec-ask', button: 'Send' })}
     </div>
   </div>
 </section>

@@ -37,6 +37,26 @@ export function leadForm({ heading, note = '', compact = false, id = 'lead' }) {
 </form>`;
 }
 
+/**
+ * Single-field email capture, for low-commitment asks where a full form would
+ * be too much to ask for. The endpoint requires only an email when that is all
+ * the form sent.
+ */
+export function emailForm({ id = 'email-only', button = 'Send', note = '' }) {
+  return `<form class="email-form" id="${id}" method="post" action="/api/lead" novalidate>
+  <div class="email-form-row">
+    <div class="field">
+      <label class="sr-only" for="${id}-email">Your email address</label>
+      <input id="${id}-email" name="email" type="email" required autocomplete="email" placeholder="you@yourpractice.com">
+    </div>
+    <button class="btn btn-accent" type="submit">${button}</button>
+  </div>
+  <input type="text" name="company_website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+  ${note ? `<p class="form-note">${note}</p>` : ''}
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>`;
+}
+
 export function sectionHead({ eyebrow, title, intro, align = 'center' }) {
   return `<div class="section-head ${align}">
     ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}

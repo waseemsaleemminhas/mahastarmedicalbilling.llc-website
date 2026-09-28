@@ -29,11 +29,14 @@ const clean = (value, max = 500) =>
 const escapeHtml = (value) =>
   value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-function validate(data) {
+// Email is always required. Name and phone are required only when the form
+// actually asked for them — the "couldn't find your specialty" form collects an
+// email alone, and rejecting it for a missing phone number would be wrong.
+function validate(data, submitted) {
   const errors = [];
-  if (!data.name) errors.push('name');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) errors.push('email');
-  if (data.phone.replace(/\D/g, '').length < 10) errors.push('phone');
+  if (submitted.has('name') && !data.name) errors.push('name');
+  if (submitted.has('phone') && data.phone.replace(/\D/g, '').length < 10) errors.push('phone');
   return errors;
 }
 
@@ -92,7 +95,7 @@ export async function onRequestPost({ request, env }) {
     FIELDS.map((f) => [f, clean(raw[f], f === 'message' || f === 'challenges' ? 2000 : 200)])
   );
 
-  const errors = validate(data);
+  const errors = validate(data, new Set(Object.keys(raw)));
   if (errors.length) return json(422, { error: 'Invalid fields', fields: errors });
 
   const meta = {

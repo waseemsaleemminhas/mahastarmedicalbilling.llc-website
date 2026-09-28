@@ -41,7 +41,9 @@
   }
 
   // Forms: validate, then submit as JSON so the page does not navigate away.
-  document.querySelectorAll('.lead-form').forEach(function (form) {
+  // .email-form is the single-field variant; same submit, validation and
+  // status handling, so it goes through this loop too.
+  document.querySelectorAll('.lead-form, .email-form').forEach(function (form) {
     var status = form.querySelector('.form-status');
 
     var setError = function (input, message) {
