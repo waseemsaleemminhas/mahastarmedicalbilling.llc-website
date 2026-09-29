@@ -66,12 +66,51 @@ export function sectionHead({ eyebrow, title, intro, align = 'center' }) {
   </div>`;
 }
 
+// Capability tags for a card, taken from the service's own `points` labels in
+// data.js. Nothing is written here: if a point's wording changes there, the chip
+// changes with it, so a card can never advertise something the service page
+// does not also describe.
+const serviceChips = (s, n = 3) => (s.points?.length
+  ? `<ul class="service-chips">
+      ${s.points.slice(0, n).map(([label]) => `<li>${label}</li>`).join('\n      ')}
+    </ul>`
+  : '');
+
 export function serviceCard(s) {
   return `<article class="service-card">
     <span class="service-icon">${serviceArt(s.slug, icon(s.icon))}</span>
     <h3>${s.title}</h3>
     <p>${s.short}</p>
+    ${serviceChips(s)}
     <a class="link-arrow" href="/services/${s.slug}/">Explore more</a>
+  </article>`;
+}
+
+/**
+ * The anchor card in the services bento — a full-width card for the service the
+ * others sit underneath. It carries all four of that service's points with their
+ * descriptions, rather than the three bare chips a standard card shows.
+ *
+ * `eyebrow` is the only text not drawn from data.js, so keep it descriptive of
+ * what the service is rather than a claim about it.
+ */
+export function serviceFeature(s, eyebrow = '') {
+  return `<article class="service-card service-feature">
+    <div class="service-feature-lead">
+      <span class="service-icon">${serviceArt(s.slug, icon(s.icon))}</span>
+      <div class="service-feature-copy">
+        ${eyebrow ? `<p class="service-feature-tag">${eyebrow}</p>` : ''}
+        <h3>${s.title}</h3>
+        <p>${s.hero}</p>
+        <a class="link-arrow" href="/services/${s.slug}/">Explore more</a>
+      </div>
+    </div>
+    <ul class="service-feature-points">
+      ${s.points.map(([t, d]) => `<li>
+        <span class="feature-check">${icon('check', 'icon icon-sm')}</span>
+        <div><h4>${t}</h4><p>${d}</p></div>
+      </li>`).join('\n      ')}
+    </ul>
   </article>`;
 }
 

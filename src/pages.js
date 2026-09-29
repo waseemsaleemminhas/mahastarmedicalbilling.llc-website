@@ -3,7 +3,19 @@ import { icon } from './layout.js';
 import { specialtyArt } from './specialtyicons.js';
 import { specialtyPages, slugify } from './specialtydetail.js';
 import { US_STATES } from './usmap.js';
-import { leadForm, emailForm, sectionHead, serviceCard, accordion, ctaBand, statBand, processTimeline } from './components.js';
+import { leadForm, emailForm, sectionHead, serviceCard, serviceFeature, accordion, ctaBand, statBand, processTimeline } from './components.js';
+
+// Revenue Cycle Management is the umbrella the other services sit under — its
+// own description says so — so it anchors the services bento rather than sitting
+// in the grid as a seventh peer. Build-time check: if the slug is ever renamed
+// in data.js this throws rather than silently dropping the service.
+const ANCHOR_SERVICE = 'revenue-cycle-management';
+const anchorService = () => {
+  const s = services.find((x) => x.slug === ANCHOR_SERVICE);
+  if (!s) throw new Error(`services bento: no service with slug "${ANCHOR_SERVICE}"`);
+  return s;
+};
+const restOfServices = () => services.filter((s) => s.slug !== ANCHOR_SERVICE);
 
 // These tiles state commitments and facts about the service, not performance
 // claims — each one is true from day one and nothing here can be contradicted
@@ -74,8 +86,11 @@ ${statBand(STATS)}
       title: 'Medical billing services, end to end',
       intro: 'Take the whole revenue cycle or just the part that is costing you the most. Each service stands on its own, and they work better together.',
     })}
-    <div class="service-grid">
-      ${services.map(serviceCard).join('\n      ')}
+    <div class="service-bento">
+      ${serviceFeature(anchorService(), 'The whole cycle')}
+      <div class="service-grid">
+        ${restOfServices().map(serviceCard).join('\n        ')}
+      </div>
     </div>
   </div>
 </section>
@@ -232,8 +247,11 @@ export function servicesIndex() {
 
 <section class="section">
   <div class="container">
-    <div class="service-grid">
-      ${services.map(serviceCard).join('\n      ')}
+    <div class="service-bento">
+      ${serviceFeature(anchorService(), 'The whole cycle')}
+      <div class="service-grid">
+        ${restOfServices().map(serviceCard).join('\n        ')}
+      </div>
     </div>
   </div>
 </section>
