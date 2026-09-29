@@ -255,3 +255,81 @@
     }
   });
 })();
+
+// "How it works" timeline: each stage reveals and its rail segment fills as the
+// section scrolls in, and its illustration animates only while on screen.
+// Progressive enhancement throughout — the .anim class that hides steps before
+// their reveal is added from here, so with this script off (or no
+// IntersectionObserver) every step renders in its finished state. Under reduced
+// motion the steps are never hidden; they are just marked live so the art rests
+// and the rail shows as complete.
+(function () {
+  'use strict';
+  var journeys = document.querySelectorAll('[data-journey]');
+  if (!journeys.length) return;
+
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var supported = 'IntersectionObserver' in window;
+
+  journeys.forEach(function (journey) {
+    var steps = Array.prototype.slice.call(journey.querySelectorAll('.journey-step'));
+    if (!steps.length) return;
+
+    var reveal = function (step, delay) {
+      if (step.classList.contains('is-live')) return;
+      if (!delay) { step.classList.add('is-live'); return; }
+      setTimeout(function () { step.classList.add('is-live'); }, delay);
+    };
+
+    if (!supported || reduced) {
+      steps.forEach(function (s) { reveal(s); });
+      return;
+    }
+
+    journey.classList.add('anim');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        // Stagger along the rail so the stages read in order rather than at once.
+        reveal(e.target, steps.indexOf(e.target) * 130);
+        io.unobserve(e.target);
+      });
+      sweep();
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+
+    steps.forEach(function (s) { io.observe(s); });
+
+    // A fast flick can carry a step past the viewport between observer samples,
+    // which would leave it hidden for good. Anything already scrolled past is
+    // revealed here regardless of whether the observer ever saw it.
+    var ticking = false;
+    var sweep = function () {
+      ticking = false;
+      var pending = 0;
+      steps.forEach(function (s) {
+        if (s.classList.contains('is-live')) return;
+        if (s.getBoundingClientRect().top < window.innerHeight) {
+          reveal(s, steps.indexOf(s) * 130);
+          io.unobserve(s);
+        } else {
+          pending++;
+        }
+      });
+      if (!pending) {
+        io.disconnect();
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    };
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(sweep);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    sweep();
+  });
+})();

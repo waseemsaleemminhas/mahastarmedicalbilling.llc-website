@@ -222,11 +222,59 @@ export const differentiators = [
   ['You keep your data', 'Your records remain yours. If the relationship ends, you leave with everything.'],
 ];
 
+// The four stages of an engagement, rendered as the "How it works" timeline.
+// `points` are read as commitments by a practice's compliance officer, so every
+// one of them must already be true and stated elsewhere on this site — pricing,
+// the BAA section, or a service page. Add nothing here that is not.
 export const process = [
-  ['Free consultation', 'We look at your current billing, your denial patterns and your A/R, and tell you what we find.'],
-  ['Onboarding', 'Access, payer enrollments and workflows set up with your team, typically over one to two weeks.'],
-  ['Billing and follow-up', 'Claims go out, payments are posted, denials are appealed and aged claims are worked.'],
-  ['Reporting and review', 'A monthly report and a standing call to review performance and adjust.'],
+  {
+    title: 'Free consultation',
+    blurb: 'We look at your current billing, your denial patterns and your A/R, and tell you what we find.',
+    art: 'consultation',
+    icon: 'search',
+    stage: 'Before you commit',
+    points: [
+      'A review of your denial patterns and aged A/R',
+      'A firm quote once we know your specialty and volume',
+      'No setup fee and no obligation to continue',
+    ],
+  },
+  {
+    title: 'Onboarding',
+    blurb: 'Access, payer enrollments and workflows set up with your team, typically over one to two weeks.',
+    art: 'onboarding',
+    icon: 'shield',
+    stage: 'Week 1 – 2',
+    points: [
+      'Your BAA signed before we are given access to patient data',
+      'Access inside the system and clearinghouse you already use',
+      'A submission schedule agreed with your front desk',
+    ],
+  },
+  {
+    title: 'Billing and follow-up',
+    blurb: 'Claims go out, payments are posted, denials are appealed and aged claims are worked.',
+    art: 'billing',
+    icon: 'cycle',
+    stage: 'Ongoing, every week',
+    points: [
+      'Claims scrubbed against payer rules before they leave',
+      'ERA and EOB posting reconciled against your ledger',
+      'A documented follow-up cadence on anything unpaid',
+    ],
+  },
+  {
+    title: 'Reporting and review',
+    blurb: 'A monthly report and a standing call to review performance and adjust.',
+    art: 'reporting',
+    icon: 'chart',
+    stage: 'Every month',
+    points: [
+      'Billed, collected, denied and appealed, in plain language',
+      'A standing call with your named account manager',
+      'Your records stay yours, whatever happens next',
+    ],
+  },
 ];
 
 export const faqs = [
