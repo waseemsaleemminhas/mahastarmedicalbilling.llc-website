@@ -236,6 +236,78 @@ ul { margin: 0; }
 .service-card p { color: var(--muted); flex: 1; margin: 0; }
 .service-card h3 { font-size: 1.14rem; }
 
+/* ---------- Services bento ---------- */
+/* One anchor card for the umbrella service, then the rest as a plain grid.
+   The anchor is full width rather than a grid span, so the row below stays a
+   tidy 3 x 2 at every breakpoint instead of leaving a hole. */
+.service-bento { display: grid; gap: 22px; }
+/* The six remaining services are pinned to three columns rather than auto-fit:
+   at container width auto-fit resolves to four, which strands the last row with
+   a two-card hole. Three gives an exact 3 x 2. */
+@media (min-width: 900px) { .service-bento .service-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.service-feature { padding: 0; overflow: hidden; }
+.service-feature > * { padding: 30px; }
+@media (min-width: 900px) {
+  .service-feature { display: grid; grid-template-columns: 1.05fr 1fr; align-items: stretch; gap: 0; }
+  .service-feature-points { border-left: 1px solid var(--line); }
+}
+.service-feature-lead { display: flex; gap: 20px; align-items: center; }
+.service-feature-copy { flex: 1; }
+.service-feature-tag {
+  display: inline-block; margin: 0 0 8px; padding: 5px 13px; border-radius: 999px;
+  background: var(--bg-tint); color: var(--brand);
+  font-size: .76rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+}
+.service-feature h3 { font-size: 1.42rem; margin-bottom: 8px; }
+.service-feature .link-arrow { display: inline-flex; margin-top: 14px; }
+
+.service-feature-points { list-style: none; margin: 0; display: grid; gap: 16px; align-content: center; }
+.service-feature-points li { display: flex; gap: 12px; align-items: flex-start; }
+.service-feature-points h4 { margin: 0 0 2px; font-size: .96rem; font-weight: 700; color: var(--ink); }
+.service-feature-points p { margin: 0; font-size: .88rem; color: var(--muted); }
+
+/* Capability tags on a standard card. `p { flex: 1 }` above already pushes
+   everything after the blurb to the foot of the card, so these sit directly
+   above the link without extra alignment rules. */
+.service-chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; margin: 4px 0 2px; }
+.service-chips li {
+  padding: 5px 11px; border-radius: 8px; background: var(--bg-alt);
+  border: 1px solid var(--line); font-size: .78rem; font-weight: 600; color: var(--body);
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+
+/* The card fills with the brand gradient on hover, so everything inside has to
+   invert with it — chips included, or they punch light holes in the card. */
+.service-card:hover .service-chips li, .service-card:focus-within .service-chips li {
+  background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.22); color: #eaf3ff;
+}
+.service-feature:hover .service-feature-tag, .service-feature:focus-within .service-feature-tag {
+  background: rgba(255,255,255,.16); color: #fff;
+}
+.service-feature:hover h4, .service-feature:focus-within h4 { color: #fff; }
+.service-feature:hover .service-feature-points p,
+.service-feature:focus-within .service-feature-points p { color: rgba(255,255,255,.82); }
+.service-feature:hover .feature-check, .service-feature:focus-within .feature-check {
+  background: rgba(255,255,255,.18); color: #7ff0dd;
+}
+@media (min-width: 900px) {
+  .service-feature:hover .service-feature-points,
+  .service-feature:focus-within .service-feature-points { border-left-color: rgba(255,255,255,.18); }
+}
+
+@media (max-width: 899px) {
+  .service-feature > * { padding: 24px; }
+  .service-feature-points { border-top: 1px solid var(--line); padding-top: 22px; }
+  .service-feature:hover .service-feature-points,
+  .service-feature:focus-within .service-feature-points { border-top-color: rgba(255,255,255,.18); }
+}
+@media (max-width: 560px) {
+  /* Stacked, the centring that balances the two desktop columns would leave the
+     icon floating over left-aligned text. */
+  .service-feature-lead { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+
 /* ---------- Animated service illustrations ---------- */
 .service-icon {
   --ico-main: var(--brand); --ico-accent: var(--accent);
