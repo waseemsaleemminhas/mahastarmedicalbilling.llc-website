@@ -114,6 +114,34 @@ export function serviceFeature(s, eyebrow = '') {
   </article>`;
 }
 
+/**
+ * A service rendered as a call to action rather than a catalogue entry — used
+ * for the free audit, which is an entry point rather than something you buy
+ * alongside the others.
+ *
+ * It fills the grid slot the service card would have taken, so the grid stays a
+ * whole number of rows, and it stays a compact card rather than a second band:
+ * `ctaBand()` already closes every page with the same free-review offer, and
+ * repeating that at full width would be the same pitch twice on one screen.
+ *
+ * Deliberately no chips. Grid rows are equal height, and the extra three rows
+ * pushed this card to 511px against the 430px row above it, hollowing out the
+ * two service cards beside it. The "what it covers" link reaches the same four
+ * points on the service page.
+ */
+export function serviceCta(s, { eyebrow = '', href, label }) {
+  return `<article class="service-card service-cta">
+    <span class="service-icon">${serviceArt(s.slug, icon(s.icon))}</span>
+    ${eyebrow ? `<p class="service-cta-tag">${eyebrow}</p>` : ''}
+    <h3>${s.title}</h3>
+    <p>${s.hero}</p>
+    <div class="service-cta-actions">
+      <a class="btn btn-accent" href="${href}">${label}</a>
+      <a class="link-arrow" href="/services/${s.slug}/">What it covers</a>
+    </div>
+  </article>`;
+}
+
 export function accordion(items, idPrefix = 'faq') {
   return `<div class="accordion">
     ${items.map(([q, a], i) => `<details${i === 0 ? ' open' : ''} name="${idPrefix}">
