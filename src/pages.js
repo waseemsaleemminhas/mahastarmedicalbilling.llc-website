@@ -3,7 +3,7 @@ import { icon } from './layout.js';
 import { specialtyArt } from './specialtyicons.js';
 import { specialtyPages, slugify } from './specialtydetail.js';
 import { US_STATES } from './usmap.js';
-import { leadForm, emailForm, sectionHead, serviceCard, accordion, ctaBand, statBand } from './components.js';
+import { leadForm, emailForm, sectionHead, serviceCard, accordion, ctaBand, statBand, processTimeline } from './components.js';
 
 // These tiles state commitments and facts about the service, not performance
 // claims — each one is true from day one and nothing here can be contradicted
@@ -99,16 +99,19 @@ ${statBand(STATS)}
   </div>
 </section>
 
-<section class="section">
+<section class="section section-journey">
   <div class="container">
     ${sectionHead({
       eyebrow: 'How it works',
       title: 'From first call to steady cash flow',
       intro: 'Onboarding is deliberately short. Most practices are live within one to two weeks.',
     })}
-    <ol class="steps">
-      ${process.map(([t, d]) => `<li><h3>${t}</h3><p>${d}</p></li>`).join('\n      ')}
-    </ol>
+    ${processTimeline(process, [
+      'No setup fee',
+      'BAA signed before access',
+      'We work in your software',
+      'Live in one to two weeks',
+    ], { href: '/contact/', label: 'Book your free consultation' })}
   </div>
 </section>
 

@@ -1,5 +1,6 @@
 import { icon } from './layout.js';
 import { serviceArt } from './serviceicons.js';
+import { processArt } from './processart.js';
 import { site } from './data.js';
 
 /** Lead capture form. Posts to Cloudflare Pages Function at /api/lead. */
@@ -112,4 +113,45 @@ export function statBand(stats) {
     </div>`).join('\n    ')}
   </div>
 </section>`;
+}
+
+/**
+ * "How it works" timeline. A connected rail of stages, each with its own animated
+ * illustration, the point in the engagement it happens at, and the checkpoints
+ * that stage delivers. The rail and the illustrations animate as the section
+ * scrolls in (site.js adds `.is-live` per step); with JavaScript off, or under
+ * reduced motion, every step renders in its finished state.
+ *
+ * @param {Array} steps       Stage objects from `process` in data.js.
+ * @param {Array} assurances  Short reassurance chips shown under the rail.
+ * @param {{href: string, label: string}} [cta]
+ */
+export function processTimeline(steps, assurances = [], cta = null) {
+  const step = (s, i) => `<li class="journey-step">
+        <span class="journey-link" aria-hidden="true"><i></i></span>
+        <div class="journey-node">
+          <span class="journey-medallion">${processArt(s.art, icon(s.icon))}</span>
+          <span class="journey-num"><span class="sr-only">Step </span>${i + 1}</span>
+        </div>
+        <div class="journey-card">
+          ${s.stage ? `<p class="journey-stage">${icon('clock', 'icon icon-sm')}${s.stage}</p>` : ''}
+          <h3>${s.title}</h3>
+          <p class="journey-blurb">${s.blurb}</p>
+          ${s.points?.length ? `<ul class="journey-points">
+            ${s.points.map((p) => `<li>${icon('check', 'icon icon-sm')}<span>${p}</span></li>`).join('\n            ')}
+          </ul>` : ''}
+        </div>
+      </li>`;
+
+  return `<div class="journey" data-journey>
+      <ol class="journey-steps">
+        ${steps.map(step).join('\n        ')}
+      </ol>
+      ${assurances.length || cta ? `<div class="journey-foot">
+        ${assurances.length ? `<ul class="journey-assure">
+          ${assurances.map((a) => `<li>${icon('check', 'icon icon-sm')}${a}</li>`).join('\n          ')}
+        </ul>` : ''}
+        ${cta ? `<a class="btn btn-accent" href="${cta.href}">${cta.label}</a>` : ''}
+      </div>` : ''}
+    </div>`;
 }

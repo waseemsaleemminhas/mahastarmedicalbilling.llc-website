@@ -267,6 +267,8 @@ ul { margin: 0; }
 .svc-art .bar.b3 { fill: var(--ico-accent); }
 .svc-art .flag { fill: var(--ico-accent); opacity: .3; stroke: none; }
 .svc-art .lens { stroke: var(--ico-main); fill: var(--ico-accent); fill-opacity: .14; }
+.svc-art .shield { fill: var(--ico-accent); stroke: none; transition: fill .3s ease; }
+.svc-art .shield-check { stroke: var(--brand); }
 .svc-art .pop, .svc-art .stamp, .svc-art .beat, .svc-art .bar, .svc-art .step,
 .svc-art .nudge-l, .svc-art .nudge-r { transform-box: fill-box; transform-origin: center; }
 .svc-art .bar { transform-origin: center bottom; }
@@ -346,21 +348,156 @@ ul { margin: 0; }
 .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
 .section-dark .feature p { color: #a9b6dc; }
 
-/* ---------- Steps ---------- */
-.steps {
-  list-style: none; padding: 0; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; counter-reset: step;
+/* ---------- "How it works" journey timeline ---------- */
+/* A connected rail of stages. The rail, the reveal and the illustrations are all
+   driven by .is-live, which site.js sets per step as the section scrolls in;
+   without JavaScript every step simply renders in its finished state. */
+.section-journey { position: relative; overflow: hidden; }
+.section-journey::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgba(0, 168, 150, .08), transparent 70%),
+    radial-gradient(45% 45% at 88% 100%, rgba(29, 42, 68, .06), transparent 70%);
 }
-.steps li {
-  counter-increment: step; background: #fff; border: 1px solid var(--line);
-  border-radius: var(--radius-lg); padding: 28px 24px; position: relative;
+.section-journey > .container { position: relative; z-index: 1; }
+
+.journey { --journey-gap: 26px; margin-top: 8px; }
+.journey-steps {
+  list-style: none; padding: 0; margin: 0; display: grid;
+  grid-template-columns: repeat(4, 1fr); gap: var(--journey-gap);
 }
-.steps li::before {
-  content: counter(step); display: grid; place-items: center;
-  width: 42px; height: 42px; border-radius: 12px; background: var(--brand); color: #fff;
-  font-weight: 800; margin-bottom: 14px;
+.journey-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* Connector to the next stage. Fills left-to-right once the step is on screen. */
+.journey-link {
+  position: absolute; z-index: 0; top: 37px; left: 50%;
+  width: calc(100% + var(--journey-gap)); height: 3px;
+  background: var(--line); border-radius: 2px; overflow: hidden;
 }
-.steps p { margin: 0; color: var(--muted); font-size: .95rem; }
+.journey-link i {
+  display: block; width: 100%; height: 100%; transform: scaleX(0); transform-origin: left;
+  background: linear-gradient(90deg, var(--accent), var(--accent-600));
+  transition: transform .9s ease .2s;
+}
+.journey-step:last-child .journey-link { display: none; }
+.journey-step.is-live .journey-link i { transform: scaleX(1); }
+
+.journey-node { position: relative; z-index: 1; margin-bottom: 20px; }
+.journey-medallion {
+  --ico-main: var(--brand); --ico-accent: var(--accent);
+  display: grid; place-items: center; width: 76px; height: 76px; border-radius: 24px;
+  background: linear-gradient(150deg, #ffffff, #e9f7f4);
+  border: 1px solid #cfe9e4; box-shadow: var(--shadow-sm);
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease;
+}
+.journey-medallion .step-art { width: 44px; height: 44px; overflow: visible; }
+.journey-num {
+  position: absolute; right: -6px; bottom: -6px; min-width: 28px; height: 28px; padding: 0 6px;
+  display: grid; place-items: center; border-radius: 999px;
+  background: var(--brand); color: #fff; font-weight: 800; font-size: .84rem;
+  border: 3px solid var(--bg); transition: background .3s ease;
+}
+.journey-step.is-live .journey-medallion,
+.journey-step:hover .journey-medallion {
+  --ico-main: #ffffff; --ico-accent: #7ff0dd;
+  background: linear-gradient(150deg, var(--brand), #16233c);
+  border-color: var(--brand); box-shadow: 0 14px 30px rgba(29, 42, 68, .22);
+}
+.journey-step.is-live .journey-num, .journey-step:hover .journey-num { background: var(--accent-600); }
+.journey-step.is-live .svc-art .coin-t, .journey-step:hover .svc-art .coin-t,
+.journey-step.is-live .svc-art .coin-f, .journey-step:hover .svc-art .coin-f { fill: var(--brand); }
+.journey-step.is-live .svc-art .coin-s, .journey-step:hover .svc-art .coin-s { stroke: var(--brand); }
+.journey-step:hover .journey-medallion { transform: translateY(-4px) scale(1.04); }
+
+.journey-card {
+  position: relative; width: 100%; flex: 1; background: #fff;
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 26px 22px 24px; box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.journey-card::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-600));
+  opacity: 0; transition: opacity .25s ease;
+}
+.journey-step:hover .journey-card {
+  transform: translateY(-4px); box-shadow: var(--shadow); border-color: #cfe9e4;
+}
+.journey-step:hover .journey-card::before { opacity: 1; }
+
+.journey-stage {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0 0 10px;
+  padding: 5px 12px 5px 10px; border-radius: 999px;
+  background: var(--bg-tint); color: var(--brand);
+  font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+}
+.journey-stage .icon { color: var(--accent-600); }
+.journey-card h3 { margin: 0 0 6px; font-size: 1.12rem; }
+.journey-blurb { margin: 0; color: var(--muted); font-size: .95rem; }
+
+.journey-points {
+  list-style: none; padding: 16px 0 0; margin: 16px 0 0; display: grid; gap: 9px;
+  border-top: 1px solid var(--line); text-align: left;
+}
+.journey-points li { display: flex; gap: 9px; align-items: flex-start; font-size: .88rem; color: var(--body); }
+.journey-points .icon { color: var(--accent-600); margin-top: 3px; }
+
+.journey-foot {
+  margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: center; justify-content: center;
+}
+.journey-assure { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
+.journey-assure li {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 15px 7px 12px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  font-weight: 700; font-size: .9rem; color: var(--brand);
+}
+.journey-assure .icon { color: var(--accent-600); }
+
+/* Reveal. Only armed by site.js (.anim), so the steps are never hidden without it. */
+.journey.anim .journey-step {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.journey.anim .journey-step.is-live { opacity: 1; transform: none; }
+
+@media (max-width: 1000px) {
+  .journey-steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  /* Vertical rail: medallion column on the left, card beside it. */
+  .journey { --journey-gap: 28px; }
+  .journey-steps { grid-template-columns: 1fr; }
+  .journey-step {
+    display: grid; grid-template-columns: 76px 1fr; align-items: start;
+    column-gap: 18px; text-align: left;
+  }
+  .journey-node { margin-bottom: 0; }
+  .journey-card { padding: 20px 20px 22px; }
+  .journey-link {
+    top: 76px; left: 37px; width: 3px; height: calc(100% - 76px + var(--journey-gap));
+  }
+  .journey-link i { width: 100%; transform: scaleY(0); transform-origin: top; }
+  .journey-step.is-live .journey-link i { transform: scaleY(1); }
+  .journey-foot { flex-direction: column; }
+  .journey-assure { justify-content: flex-start; }
+  .journey-foot .btn { width: 100%; }
+}
+@media (max-width: 480px) {
+  .journey-step { grid-template-columns: 62px 1fr; column-gap: 14px; }
+  .journey-medallion { width: 62px; height: 62px; border-radius: 20px; }
+  .journey-medallion .step-art { width: 36px; height: 36px; }
+  .journey-num { min-width: 24px; height: 24px; font-size: .78rem; border-width: 2px; }
+  .journey-link { top: 62px; left: 30px; height: calc(100% - 62px + var(--journey-gap)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* The global reduce rule kills the transitions; make sure nothing is left
+     mid-reveal or mid-fill when it does. */
+  .journey.anim .journey-step { opacity: 1; transform: none; }
+  .journey-link i { transform: none !important; }
+}
 
 /* ---------- Specialties ---------- */
 .specialty-chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; align-content: start; }
