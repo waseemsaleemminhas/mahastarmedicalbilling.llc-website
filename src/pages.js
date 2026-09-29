@@ -3,19 +3,37 @@ import { icon } from './layout.js';
 import { specialtyArt } from './specialtyicons.js';
 import { specialtyPages, slugify } from './specialtydetail.js';
 import { US_STATES } from './usmap.js';
-import { leadForm, emailForm, sectionHead, serviceCard, serviceFeature, accordion, ctaBand, statBand, processTimeline } from './components.js';
+import { leadForm, emailForm, sectionHead, serviceCard, serviceFeature, serviceCta, accordion, ctaBand, statBand, processTimeline } from './components.js';
 
-// Revenue Cycle Management is the umbrella the other services sit under — its
-// own description says so — so it anchors the services bento rather than sitting
-// in the grid as a seventh peer. Build-time check: if the slug is ever renamed
-// in data.js this throws rather than silently dropping the service.
+// Two services are not peers of the rest, and the bento says so.
+//
+// Revenue Cycle Management is the umbrella the others sit under — its own
+// description says as much — so it anchors the section. The practice audit is
+// free and is where an engagement starts, so it renders as a call to action in
+// the grid rather than as a sixth thing to buy. Taking it out of the grid
+// entirely would also leave five cards in three columns and strand a hole;
+// as a CTA in its own slot the grid stays an exact 3 x 2.
 const ANCHOR_SERVICE = 'revenue-cycle-management';
-const anchorService = () => {
-  const s = services.find((x) => x.slug === ANCHOR_SERVICE);
-  if (!s) throw new Error(`services bento: no service with slug "${ANCHOR_SERVICE}"`);
+const CTA_SERVICE = 'practice-audit';
+
+// Looked up rather than indexed, and fatal if missing: renaming a slug in
+// data.js fails the build instead of silently dropping the service from the page.
+const serviceBySlug = (slug) => {
+  const s = services.find((x) => x.slug === slug);
+  if (!s) throw new Error(`services bento: no service with slug "${slug}"`);
   return s;
 };
-const restOfServices = () => services.filter((s) => s.slug !== ANCHOR_SERVICE);
+const anchorService = () => serviceBySlug(ANCHOR_SERVICE);
+const ctaService = () => serviceBySlug(CTA_SERVICE);
+const gridServices = () => services.filter((s) => s.slug !== ANCHOR_SERVICE && s.slug !== CTA_SERVICE);
+
+// "Free" and "no obligation" restate the practice-audit FAQ ("offered at no cost
+// and with no obligation"); nothing new is claimed here.
+const auditCta = () => serviceCta(ctaService(), {
+  eyebrow: 'Free, no obligation',
+  href: '/contact/',
+  label: 'Book a free review',
+});
 
 // These tiles state commitments and facts about the service, not performance
 // claims — each one is true from day one and nothing here can be contradicted
@@ -89,7 +107,8 @@ ${statBand(STATS)}
     <div class="service-bento">
       ${serviceFeature(anchorService(), 'The whole cycle')}
       <div class="service-grid">
-        ${restOfServices().map(serviceCard).join('\n        ')}
+        ${gridServices().map(serviceCard).join('\n        ')}
+        ${auditCta()}
       </div>
     </div>
   </div>
@@ -250,7 +269,8 @@ export function servicesIndex() {
     <div class="service-bento">
       ${serviceFeature(anchorService(), 'The whole cycle')}
       <div class="service-grid">
-        ${restOfServices().map(serviceCard).join('\n        ')}
+        ${gridServices().map(serviceCard).join('\n        ')}
+        ${auditCta()}
       </div>
     </div>
   </div>

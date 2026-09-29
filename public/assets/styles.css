@@ -308,6 +308,26 @@ ul { margin: 0; }
   .service-feature-lead { flex-direction: column; align-items: flex-start; gap: 14px; }
 }
 
+/* The free audit sits in the grid as a call to action, not a catalogue entry.
+   It wears permanently what the other cards only reach on hover, so it reads as
+   the way in rather than as a sixth thing to buy. */
+.service-cta::before { opacity: 1; }
+.service-cta { border-color: transparent; }
+.service-cta h3 { color: #fff; }
+.service-cta p { color: rgba(255,255,255,.84); }
+.service-cta .service-icon { --ico-main: #fff; --ico-accent: #7ff0dd; background: rgba(255,255,255,.14); }
+.service-cta .service-chips li { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.22); color: #eaf3ff; }
+.service-cta .link-arrow { color: #7ff0dd; }
+.service-cta-tag {
+  display: inline-block; align-self: flex-start; margin: 0; padding: 5px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.16); color: #fff;
+  font-size: .74rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+}
+.service-cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 4px; }
+.service-cta-actions .btn { padding: 11px 22px; }
+/* The card already carries the gradient, so the lift is the whole hover here. */
+.service-cta:hover, .service-cta:focus-within { border-color: transparent; }
+
 /* ---------- Animated service illustrations ---------- */
 .service-icon {
   --ico-main: var(--brand); --ico-accent: var(--accent);
